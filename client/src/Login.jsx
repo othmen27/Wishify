@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaGift, FaMagic, FaGoogle, FaFacebook } from 'react-icons/fa';
+import './App.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -25,132 +26,60 @@ const Login = () => {
     }, 1500);
   };
 
-  // Responsive split layout
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'row',
-      background: '#f8fafc',
-      color: '#18181b',
-      transition: 'background 0.3s, color 0.3s',
-    }}>
+    <div className="auth-root">
       {/* Left Side (illustration, only on desktop) */}
-      <div style={{
-        flex: 1,
-        background: 'linear-gradient(135deg, #a5b4fc 0%, #f1f5fe 100%)',
-        display: window.innerWidth < 900 ? 'none' : 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: 400,
-        padding: 32,
-        position: 'relative',
-      }}>
+      <div className="auth-illustration" style={{ display: window.innerWidth < 900 ? 'none' : 'flex' }}>
         <div>
-          <img src="https://undraw.co/api/illustrations/undraw_gift_re_qr17.svg" alt="Dreamy wishlist" style={{ width: 260, marginBottom: 24 }} />
-          <div style={{ fontSize: 22, fontWeight: 600, color: '#2563eb' }}>
-            Let’s make dreams happen.
-          </div>
-          <div style={{ marginTop: 16, color: '#64748b' }}>
-            Animated stars, gifts, and wishlists await you!
-          </div>
+          <img src="https://undraw.co/api/illustrations/undraw_gift_re_qr17.svg" alt="Dreamy wishlist" />
+          <div className="auth-illustration-desc">Let’s make dreams happen.</div>
+          <div className="auth-illustration-sub">Animated stars, gifts, and wishlists await you!</div>
         </div>
       </div>
       {/* Right Side (form) */}
-      <div style={{
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minHeight: 400,
-        padding: 32,
-        position: 'relative',
-      }}>
-        <form
-          onSubmit={handleSubmit}
-          style={{
-            background: '#fff',
-            borderRadius: 18,
-            boxShadow: '0 2px 16px rgba(37,99,235,0.10)',
-            padding: '2.5rem 2rem',
-            minWidth: 320,
-            maxWidth: 380,
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: 18,
-          }}
-        >
+      <div className="auth-form-side">
+        <form onSubmit={handleSubmit} className="auth-form">
           {/* Logo */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+          <div className="auth-logo">
             <FaGift size={32} color={'#2563eb'} />
             <span style={{ fontWeight: 700, fontSize: 24 }}>Wishify</span>
             <FaMagic size={20} color={'#a5b4fc'} />
           </div>
-          <div style={{ fontWeight: 600, fontSize: 22, marginBottom: 2 }}>
-            Welcome back to Wishify 🎁
-          </div>
-          <div style={{ color: '#64748b', marginBottom: 10 }}>
-            Login to access your wishlists
-          </div>
+          <div className="auth-title">Welcome back to Wishify 🎁</div>
+          <div className="auth-subtitle">Login to access your wishlists</div>
           {/* Email */}
-          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
+          <div className="auth-input-group">
             <input
               type="email"
               placeholder="Email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '0.9rem 1rem',
-                borderRadius: 8,
-                border: error.email ? '2px solid #ef4444' : '2px solid #cbd5e1',
-                outline: 'none',
-                fontSize: 16,
-                marginBottom: 4,
-                background: '#f8fafc',
-                color: '#18181b',
-                transition: 'border 0.2s',
-                textAlign: 'center',
-              }}
+              className={`auth-input${error.email ? ' error' : ''}`}
               autoFocus
             />
             {error.email && (
-              <div style={{ color: '#ef4444', fontSize: 13, marginTop: 2, alignSelf: 'flex-start' }}>
+              <div className="auth-validation">
                 <span style={{ marginRight: 4 }}>✖</span>Email required
               </div>
             )}
           </div>
           {/* Password */}
-          <div style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
+          <div className="auth-input-group">
             <input
               type="password"
               placeholder="Password"
               value={password}
               onChange={e => setPassword(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '0.9rem 1rem',
-                borderRadius: 8,
-                border: error.password ? '2px solid #ef4444' : '2px solid #cbd5e1',
-                outline: 'none',
-                fontSize: 16,
-                marginBottom: 4,
-                background: '#f8fafc',
-                color: '#18181b',
-                transition: 'border 0.2s',
-                textAlign: 'center',
-              }}
+              className={`auth-input${error.password ? ' error' : ''}`}
             />
             {error.password && (
-              <div style={{ color: '#ef4444', fontSize: 13, marginTop: 2, alignSelf: 'flex-start' }}>
+              <div className="auth-validation">
                 <span style={{ marginRight: 4 }}>✖</span>Password required
               </div>
             )}
           </div>
           {/* Remember Me */}
-          <div style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 8, marginBottom: 2 }}>
+          <div className="auth-checkbox-group">
             <input
               type="checkbox"
               checked={remember}
@@ -158,36 +87,20 @@ const Login = () => {
               id="rememberMe"
               style={{ accentColor: '#2563eb' }}
             />
-            <label htmlFor="rememberMe" style={{ fontSize: 15, color: '#18181b' }}>
+            <label htmlFor="rememberMe" className="auth-checkbox-label">
               Remember Me
             </label>
           </div>
           {/* Easter Egg */}
           {easterEgg && (
-            <div style={{ color: '#fbbf24', fontWeight: 500, fontSize: 15, marginBottom: 2 }}>{easterEgg}</div>
+            <div className="auth-easter-egg">{easterEgg}</div>
           )}
           {/* Login Button */}
           <button
             type="submit"
             disabled={loading}
-            style={{
-              width: '100%',
-              background: loading
-                ? 'linear-gradient(90deg, #a5b4fc 0%, #60a5fa 100%)'
-                : 'linear-gradient(90deg, #60a5fa 0%, #a5b4fc 100%)',
-              color: '#fff',
-              border: 'none',
-              borderRadius: 10,
-              padding: '1rem',
-              fontSize: '1.15rem',
-              fontWeight: 700,
-              marginTop: 8,
-              marginBottom: 8,
-              boxShadow: loading ? '0 0 16px #a5b4fc' : '0 2px 8px rgba(37,99,235,0.10)',
-              cursor: loading ? 'not-allowed' : 'pointer',
-              transition: 'box-shadow 0.2s, background 0.2s',
-              position: 'relative',
-            }}
+            className="auth-btn"
+            style={loading ? { background: 'linear-gradient(90deg, #a5b4fc 0%, #60a5fa 100%)', boxShadow: '0 0 16px #a5b4fc' } : {}}
           >
             {loading ? (
               <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
@@ -199,44 +112,20 @@ const Login = () => {
             )}
           </button>
           {/* Divider */}
-          <div style={{ width: '100%', textAlign: 'center', color: '#94a3b8', margin: '10px 0', fontSize: 15 }}>
-            <span style={{ background: '#fff', padding: '0 10px' }}>or</span>
+          <div className="auth-divider">
+            <span>or</span>
           </div>
           {/* Alternative login options */}
-          <div style={{ width: '100%', display: 'flex', gap: 12, justifyContent: 'center', marginBottom: 6 }}>
-            <button type="button" style={{
-              background: '#fff',
-              color: '#ea4335',
-              border: '1.5px solid #cbd5e1',
-              borderRadius: 8,
-              padding: '0.6rem 1.2rem',
-              fontWeight: 600,
-              fontSize: 15,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              cursor: 'pointer',
-            }}>
+          <div className="auth-alt-btns">
+            <button type="button" className="auth-alt-btn google">
               <FaGoogle /> Google
             </button>
-            <button type="button" style={{
-              background: '#fff',
-              color: '#1877f3',
-              border: '1.5px solid #cbd5e1',
-              borderRadius: 8,
-              padding: '0.6rem 1.2rem',
-              fontWeight: 600,
-              fontSize: 15,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              cursor: 'pointer',
-            }}>
+            <button type="button" className="auth-alt-btn facebook">
               <FaFacebook /> Facebook
             </button>
           </div>
           {/* Links */}
-          <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', fontSize: 14, marginTop: 6 }}>
+          <div className="auth-links">
             <a href="#" style={{ color: '#2563eb', textDecoration: 'underline' }}>Forgot Password?</a>
             <span>
               Don’t have an account?{' '}
@@ -247,28 +136,12 @@ const Login = () => {
       </div>
       {/* Mobile stacked illustration */}
       {window.innerWidth < 900 && (
-        <div style={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 24,
-          background: '#f1f5fe',
-        }}>
-          <img src="https://undraw.co/api/illustrations/undraw_gift_re_qr17.svg" alt="Dreamy wishlist" style={{ width: 180, marginBottom: 16 }} />
-          <div style={{ fontSize: 18, fontWeight: 600, color: '#2563eb' }}>
-            Let’s make dreams happen.
-          </div>
+        <div className="auth-mobile-illustration">
+          <img src="https://undraw.co/api/illustrations/undraw_gift_re_qr17.svg" alt="Dreamy wishlist" />
+          <div className="auth-mobile-illustration-desc">Let’s make dreams happen.</div>
         </div>
       )}
-      {/* Spinner animation keyframes */}
-      <style>{`
-        @keyframes spin {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
+      {/* Spinner animation keyframes are in App.css */}
     </div>
   );
 };
