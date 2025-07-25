@@ -1,0 +1,70 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Environment Variables
+.env
+.env.*.local
+
+# OS Specific (Windows)
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Logs
+logs
+*.log
+*.log.*
+
+# MongoDB (if dumping data)
+dump/
+
+# Build files
+dist/
+build/
+.temp/
+.cache/
+.next/
+out/
+coverage/
+
+# React specific
+*.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# VSCode and Cursor
+.vscode/
+.cursor/
+
+# Optional: ignore uploads/tmp folders
+uploads/
+tmp/
+temp/
+
+# Optional: Ignore IDE-specific files
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Misc
+*.tgz
+*.gz
+*.zip
+*.tar
+*.tar.gz
+
+# Git
+.git/
+
+# Tests output
+test-output/
