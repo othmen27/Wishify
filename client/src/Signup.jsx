@@ -74,7 +74,7 @@ const Signup = () => {
   return (
     <div className="auth-root" style={{ flexDirection: window.innerWidth < 900 ? 'column' : 'row', position: 'relative' }}>
       {/* Left Side (illustration, only on desktop) */}
-      <div className="auth-illustration" style={{ display: window.innerWidth < 900 ? 'none' : 'flex' }}>
+      <div className="auth-illustration-fullheight">
         <Leaderboard />
       </div>
       {/* Right Side (form) */}
