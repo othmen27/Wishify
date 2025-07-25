@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FaGift, FaMagic, FaGoogle, FaFacebook, FaCheckCircle, FaTimesCircle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import './App.css';
 import Leaderboard from './components/Leaderboard.jsx'; 
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const confettiColors = ['#a5b4fc', '#fbbf24', '#60a5fa', '#f472b6', '#34d399'];
 
@@ -46,7 +48,7 @@ const Signup = () => {
     return errs;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setEasterEgg('');
     const errs = validate();
@@ -56,9 +58,21 @@ const Signup = () => {
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
     setLoading(true);
-    setTimeout(() => {
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/register', {
+        username: name,
+        email,
+        password,
+      });
+      
       setLoading(false);
       setSuccess(true);
+      
+      // Store token and user data
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      
       // Confetti burst
       setConfetti(Array.from({ length: 40 }, (_, i) => ({
         left: Math.random() * 100,
@@ -68,7 +82,15 @@ const Signup = () => {
         key: i
       })));
       setTimeout(() => setConfetti([]), 2200);
-    }, 1500);
+      navigate('/discover');
+    } catch (error) {
+      setLoading(false);
+      if (error.response && error.response.data && error.response.data.message) {
+        setErrors({ api: error.response.data.message });
+      } else {
+        setErrors({ api: 'Registration failed. Please try again.' });
+      }
+    }
   };
 
   return (
@@ -258,5 +280,4 @@ const Signup = () => {
     </div>
   );
 };
-
 export default Signup;

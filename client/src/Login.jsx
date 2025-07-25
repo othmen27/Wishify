@@ -1,31 +1,55 @@
 import React, { useState } from 'react';
 import { FaGift, FaMagic, FaGoogle, FaFacebook } from 'react-icons/fa';
+import axios from 'axios';
 import './App.css';
 import Leaderboard from './components/Leaderboard';
-
-
+import { useNavigate } from 'react-router-dom';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState({ email: false, password: false });
+  const [error, setError] = useState({ email: false, password: false, api: '' });
   const [easterEgg, setEasterEgg] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError({ email: !email, password: !password });
+    setError({ email: !email, password: !password, api: '' });
     setEasterEgg('');
+    
     if (!email || !password) return;
+    
     if (email.toLowerCase() === 'santa@northpole.com') {
       setEasterEgg('Santa already has a wishlist 🎅');
       return;
     }
+    
     setLoading(true);
-    setTimeout(() => {
+    
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/login', {
+        email,
+        password,
+      });
+      
       setLoading(false);
-      alert(`Logging in with Email: ${email}`);
-    }, 1500);
+      console.log('Login successful:', response.data);
+      
+      // Store token and user data
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      
+      // You can store user data in localStorage or state management here
+      alert(`Welcome back, ${response.data.user.username}!`);
+      navigate('/discover');
+    } catch (error) {
+      setLoading(false);
+      if (error.response && error.response.data && error.response.data.message) {
+        setError({ ...error, api: error.response.data.message });
+      } else {
+        setError({ ...error, api: 'Login failed. Please try again.' });
+      }
+    }
   };
 
   return (
@@ -76,6 +100,12 @@ const Login = () => {
               </div>
             )}
           </div>
+          {/* API Error */}
+          {error.api && (
+            <div className="auth-validation" style={{ color: '#ef4444', marginBottom: 8 }}>
+              <span style={{ marginRight: 4 }}>✖</span>{error.api}
+            </div>
+          )}
           {/* Remember Me */}
           <div className="auth-checkbox-group">
             <input

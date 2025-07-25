@@ -2,28 +2,55 @@ import React from 'react';
 import { FaGift, FaListAlt, FaShareAlt } from 'react-icons/fa';
 import './App.css';
 import { useNavigate } from 'react-router-dom';
+import { isLoggedIn, getCurrentUser } from './utils/auth';
+
 const Home = () => {
   const navigate = useNavigate();
+  const loggedIn = isLoggedIn();
+  const currentUser = getCurrentUser();
+
   return (
     <div className="landing-container">
-      {/* Big Headline */}
-      <h1 className="landing-headline">
-        Make a wish. Share it. Get it.
-      </h1>
-      {/* Call to Action */}
-      <div className="landing-cta">
-        <button className="landing-btn-primary" onClick={() => navigate('/signup')}>
-          Start Your Wishlist
-        </button>
-        <button className="landing-btn-secondary" onClick={() => navigate('/login')}>
-          Log In
-        </button>
-      </div>
+      {/* Conditional Header based on login status */}
+      {!loggedIn ? (
+        <>
+          {/* Big Headline for non-logged in users */}
+          <h1 className="landing-headline">
+            Make a wish. Share it. Get it.
+          </h1>
+          {/* Call to Action */}
+          <div className="landing-cta">
+            <button className="landing-btn-primary" onClick={() => navigate('/signup')}>
+              Start Your Wishlist
+            </button>
+            <button className="landing-btn-secondary" onClick={() => navigate('/login')}>
+              Log In
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          {/* Welcome message for logged in users */}
+          <h1 className="landing-headline">
+            Welcome back, {currentUser?.username || 'User'}!
+          </h1>
+          <div className="landing-cta">
+            <button className="landing-btn-primary" onClick={() => navigate('/wishlist')}>
+              View My Wishlist
+            </button>
+            <button className="landing-btn-secondary" onClick={() => navigate('/discover')}>
+              Discover Wishes
+            </button>
+          </div>
+        </>
+      )}
+
       {/* Illustrations Placeholder */}
       <div className="landing-illustration">
         <img src="https://undraw.co/api/illustrations/undraw_gift_re_qr17.svg" alt="People unboxing gifts" />
         <div className="landing-illustration-desc">Illustration: Unboxing gifts & writing wishlists</div>
       </div>
+
       {/* How it works */}
       <div className="landing-how">
         <h2 className="landing-how-title">How it works</h2>
@@ -45,6 +72,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       {/* Screenshot Preview Placeholder */}
       <div className="landing-preview">
         <div className="landing-preview-box">
@@ -59,3 +87,5 @@ const Home = () => {
 };
 
 export default Home;
+
+

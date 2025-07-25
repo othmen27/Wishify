@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaRegStar, FaMagic, FaBars, FaTimes, FaUserCircle } from 'react-icons/fa';
+import { isLoggedIn, getCurrentUser, logout } from './utils/auth';
 import './App.css';
 
 const navLinks = [
@@ -15,8 +16,15 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
-  // Simulate user login state
-  const isLoggedIn = false;
+  
+  // Get login status and user data
+  const loggedIn = isLoggedIn();
+  const currentUser = getCurrentUser();
+
+  const handleLogout = () => {
+    logout();
+    window.location.reload(); // Refresh to update navbar
+  };
 
   React.useEffect(() => {
     const onScroll = () => {
@@ -53,10 +61,25 @@ const Navbar = () => {
             </Link>
           ))}
           {/* Right side: user or login/signup */}
-          {isLoggedIn ? (
-            <div className="navbar-user">
+          {loggedIn ? (
+            <div className="navbar-user" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span style={{ color: '#2563eb', fontWeight: 500 }}>
+                Hi, {currentUser?.username || 'User'}!
+              </span>
               <FaUserCircle size={28} color="#2563eb" style={{ cursor: 'pointer' }} />
-              {/* Dropdown menu would go here */}
+              <button 
+                onClick={handleLogout}
+                style={{ 
+                  background: 'none', 
+                  border: 'none', 
+                  color: '#ef4444', 
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                  fontWeight: 500
+                }}
+              >
+                Logout
+              </button>
             </div>
           ) : (
             <div style={{ display: 'flex', gap: 12 }}>
@@ -90,10 +113,25 @@ const Navbar = () => {
                 {location.pathname === link.to && <span className="navbar-mobile-link-dot" />}
               </Link>
             ))}
-            {isLoggedIn ? (
-              <div className="navbar-mobile-user">
+            {loggedIn ? (
+              <div className="navbar-mobile-user" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, marginTop: 18 }}>
+                <span style={{ color: '#2563eb', fontWeight: 500 }}>
+                  Hi, {currentUser?.username || 'User'}!
+                </span>
                 <FaUserCircle size={28} color="#2563eb" style={{ cursor: 'pointer' }} />
-                {/* Dropdown menu would go here */}
+                <button 
+                  onClick={handleLogout}
+                  style={{ 
+                    background: 'none', 
+                    border: 'none', 
+                    color: '#ef4444', 
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                    fontWeight: 500
+                  }}
+                >
+                  Logout
+                </button>
               </div>
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 18 }}>
