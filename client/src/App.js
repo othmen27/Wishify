@@ -5,6 +5,7 @@ import PostWish from './PostWish.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Navbar from './Navbar.jsx';
+import Discover from './Discover.jsx';
 import './App.css';
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/post" element={<PostWish />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/discover" element={<Discover />} />
         </Routes>
       </div>
     </Router>

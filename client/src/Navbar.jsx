@@ -8,7 +8,6 @@ const navLinks = [
   { to: '/wishlist', label: 'My Wishlist', icon: <span role="img" aria-label="wishlist">🎁</span> },
   { to: '/discover', label: 'Discover', icon: <span role="img" aria-label="discover">🔍</span> },
   { to: '/about', label: 'About', icon: <span role="img" aria-label="about">📖</span> },
-  { to: '/leaderboard', label: 'Leaderboard', icon: <span role="img" aria-label="leaderboard">🏆</span> },
   // { to: '/blog', label: 'Blog', icon: <span role="img" aria-label="blog">💬</span> },
 ];
 

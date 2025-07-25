@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FaGift, FaMagic, FaGoogle, FaFacebook } from 'react-icons/fa';
 import './App.css';
+import Leaderboard from './components/Leaderboard';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -29,12 +31,8 @@ const Login = () => {
   return (
     <div className="auth-root">
       {/* Left Side (illustration, only on desktop) */}
-      <div className="auth-illustration" style={{ display: window.innerWidth < 900 ? 'none' : 'flex' }}>
-        <div>
-          <img src="https://undraw.co/api/illustrations/undraw_gift_re_qr17.svg" alt="Dreamy wishlist" />
-          <div className="auth-illustration-desc">Let’s make dreams happen.</div>
-          <div className="auth-illustration-sub">Animated stars, gifts, and wishlists await you!</div>
-        </div>
+      <div className="auth-illustration-fullheight">
+        <Leaderboard />
       </div>
       {/* Right Side (form) */}
       <div className="auth-form-side">
