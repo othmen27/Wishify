@@ -1,27 +1,10 @@
-// client/src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
-// Simple placeholder pages
-function Home() {
-  return <h2>Home - List of Wishes</h2>;
-}
-
-function PostWish() {
-  return <h2>Post a Wish Form</h2>;
-}
-
-function Leaderboard() {
-  return <h2>Leaderboard - Top Donors</h2>;
-}
-
-function Login() {
-  return <h2>Login Page</h2>;
-}
-
-function Signup() {
-  return <h2>Signup Page</h2>;
-}
+import Home from './Home.jsx';
+import PostWish from './PostWish.jsx';
+import Leaderboard from './Leaderboard.jsx';
+import Login from './Login.jsx';
+import Signup from './Signup.jsx';
 
 function Navbar() {
   return (
