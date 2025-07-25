@@ -1,5 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.test-tailwind {
+  @apply text-3xl text-pink-500 font-bold;
+}
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
-
 body {
   margin: 0;
   padding: 0;
@@ -82,341 +87,164 @@ button:hover {
 .mb-2 { margin-bottom: 2rem; }
 .text-center { text-align: center; }
 
-/* --- Home.jsx Styles --- */
+/* --- Home.jsx Styles (Tailwind Enhanced) --- */
 .landing-container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
-  text-align: center;
+  @apply max-w-2xl mx-auto py-10 px-4 text-center;
 }
 .landing-headline {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #2563eb;
+  @apply text-4xl md:text-5xl font-extrabold text-indigo-700 mb-6 leading-tight;
 }
 .landing-cta {
-  margin-bottom: 2rem;
+  @apply flex flex-col md:flex-row justify-center gap-4 mb-8;
 }
 .landing-btn-primary {
-  background: linear-gradient(90deg, #60a5fa 0%, #a5b4fc 100%);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  cursor: pointer;
-  margin-right: 1rem;
+  @apply bg-gradient-to-r from-blue-400 to-indigo-400 text-white rounded-lg px-8 py-3 text-lg font-bold shadow hover:from-indigo-500 hover:to-blue-400 transition;
 }
 .landing-btn-secondary {
-  background: #fff;
-  color: #2563eb;
-  border: 2px solid #2563eb;
-  border-radius: 8px;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  cursor: pointer;
+  @apply bg-white text-indigo-700 border-2 border-indigo-500 rounded-lg px-8 py-3 text-lg font-bold shadow hover:bg-indigo-50 transition;
 }
 .landing-illustration {
-  margin: 2rem 0;
+  @apply my-8 flex flex-col items-center;
 }
 .landing-illustration img {
-  width: 220px;
-  margin-bottom: 16px;
+  @apply w-56 mb-4;
 }
 .landing-illustration-desc {
-  color: #64748b;
-  font-size: 1rem;
+  @apply text-gray-500 text-base;
 }
 .landing-how {
-  margin: 2.5rem 0;
+  @apply my-10;
 }
 .landing-how-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 24px;
+  @apply text-2xl font-bold mb-6 text-indigo-700;
 }
 .landing-how-steps {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
+  @apply flex flex-col md:flex-row justify-between gap-6;
 }
 .landing-how-step {
-  flex: 1;
-  min-width: 120px;
+  @apply flex-1 min-w-[120px] flex flex-col items-center bg-white rounded-xl shadow p-4 transition hover:scale-105;
 }
 .landing-how-step h3 {
-  margin: 12px 0 6px;
+  @apply mt-3 mb-1 text-lg font-semibold text-indigo-600;
 }
 .landing-how-step-desc {
-  color: #64748b;
+  @apply text-gray-500 text-sm;
 }
 .landing-preview {
-  margin: 2rem 0;
+  @apply my-8;
 }
 .landing-preview-box {
-  background: #f1f5fe;
-  border-radius: 16px;
-  box-shadow: 0 1px 6px rgba(37,99,235,0.06);
-  padding: 2rem;
-  display: inline-block;
+  @apply bg-indigo-50 rounded-2xl shadow p-6 inline-block;
 }
 .landing-preview-label {
-  color: #64748b;
-  margin-bottom: 8px;
+  @apply text-gray-400 mb-2;
 }
 .landing-preview-img {
-  width: 320px;
-  height: 180px;
-  background: #e0e7ef;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #94a3b8;
-  font-size: 18px;
+  @apply w-80 h-44 bg-indigo-100 rounded-lg flex items-center justify-center text-gray-400 text-lg;
 }
 
-/* --- Login & Signup Shared Styles --- */
+/* --- Login & Signup Shared Styles (Tailwind Enhanced) --- */
 .auth-root {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: row;
-  background: #f8fafc;
-  color: #18181b;
-  transition: background 0.3s, color 0.3s;
+  @apply min-h-screen flex flex-row bg-gray-50 text-gray-900 transition-colors duration-300;
 }
 .auth-illustration {
-  flex: 1;
-  background: linear-gradient(135deg, #a5b4fc 0%, #f1f5fe 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 400px;
-  padding: 32px;
-  position: relative;
+  @apply flex-1 bg-gradient-to-br from-indigo-200 to-indigo-50 flex items-center justify-center min-h-[400px] p-8 relative hidden md:flex;
 }
 .auth-illustration img {
-  width: 260px;
-  margin-bottom: 24px;
+  @apply w-64 mb-6 animate-float;
 }
 .auth-illustration-desc {
-  font-size: 22px;
-  font-weight: 600;
-  color: #2563eb;
+  @apply text-2xl font-bold text-indigo-700;
 }
 .auth-illustration-sub {
-  margin-top: 16px;
-  color: #64748b;
+  @apply mt-4 text-gray-500;
 }
 .auth-form-side {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 400px;
-  padding: 32px;
-  position: relative;
+  @apply flex-1 flex items-center justify-center min-h-[400px] p-8 relative;
 }
 .auth-form {
-  background: #fff;
-  border-radius: 18px;
-  box-shadow: 0 2px 16px rgba(37,99,235,0.10);
-  padding: 2.5rem 2rem;
-  min-width: 320px;
-  max-width: 400px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  position: relative;
+  @apply bg-white rounded-2xl shadow-xl p-10 min-w-[320px] max-w-md w-full flex flex-col items-center gap-5 relative;
 }
 .auth-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
+  @apply flex items-center gap-3 mb-2;
 }
 .auth-title {
-  font-weight: 600;
-  font-size: 22px;
-  margin-bottom: 2px;
+  @apply font-bold text-2xl mb-1 text-indigo-700;
 }
 .auth-subtitle {
-  color: #64748b;
-  margin-bottom: 10px;
+  @apply text-gray-500 mb-2;
 }
 .auth-input-group {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
+  @apply w-full flex flex-col items-center relative;
 }
 .auth-input {
-  width: 100%;
-  padding: 0.9rem 1rem;
-  border-radius: 8px;
-  border: 2px solid #cbd5e1;
-  outline: none;
-  font-size: 16px;
-  margin-bottom: 4px;
-  background: #f8fafc;
-  color: #18181b;
-  transition: border 0.2s;
-  text-align: center;
+  @apply w-full px-4 py-3 rounded-lg border-2 border-gray-200 outline-none text-base mb-1 bg-gray-50 text-center transition focus:border-indigo-500;
 }
 .auth-input.error {
-  border: 2px solid #ef4444;
+  @apply border-red-400;
 }
 .auth-input.success {
-  border: 2px solid #34d399;
+  @apply border-green-400;
 }
 .auth-input-icon {
-  position: absolute;
-  right: 12px;
-  top: 16px;
+  @apply absolute right-3 top-4;
 }
 .auth-input-eye {
-  position: absolute;
-  right: 36px;
-  top: 16px;
-  cursor: pointer;
-  color: #a5b4fc;
+  @apply absolute right-10 top-4 cursor-pointer text-indigo-300;
 }
 .auth-validation {
-  color: #ef4444;
-  font-size: 13px;
-  margin-top: 2px;
-  align-self: flex-start;
+  @apply text-red-400 text-xs mt-1 self-start;
 }
 .auth-validation.success {
-  color: #34d399;
+  @apply text-green-400;
 }
 .auth-password-strength {
-  font-size: 13px;
-  margin-top: 2px;
+  @apply text-xs mt-1;
 }
 .auth-checkbox-group {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 2px;
-  justify-content: flex-start;
+  @apply w-full flex items-center gap-2 mb-1 justify-start;
 }
 .auth-checkbox-label {
-  font-size: 15px;
-  color: #18181b;
+  @apply text-sm text-gray-800;
 }
 .auth-easter-egg {
-  color: #fbbf24;
-  font-weight: 500;
-  font-size: 15px;
-  margin-bottom: 2px;
+  @apply text-yellow-400 font-medium text-sm mb-1;
 }
 .auth-btn {
-  width: 100%;
-  background: linear-gradient(90deg, #60a5fa 0%, #a5b4fc 100%);
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 1rem;
-  font-size: 1.15rem;
-  font-weight: 700;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  box-shadow: 0 2px 8px rgba(37,99,235,0.10);
-  cursor: pointer;
-  transition: box-shadow 0.2s, background 0.2s;
-  position: relative;
-}
-.auth-btn:disabled {
-  cursor: not-allowed;
-  background: linear-gradient(90deg, #a5b4fc 0%, #60a5fa 100%);
-  box-shadow: 0 0 16px #a5b4fc;
+  @apply w-full bg-gradient-to-r from-blue-400 to-indigo-400 text-white rounded-lg py-3 text-lg font-bold mt-2 mb-2 shadow hover:from-indigo-500 hover:to-blue-400 transition disabled:opacity-60 disabled:cursor-not-allowed;
 }
 .auth-divider {
-  width: 100%;
-  text-align: center;
-  color: #94a3b8;
-  margin: 10px 0;
-  font-size: 15px;
+  @apply w-full text-center text-gray-400 my-2 text-sm;
 }
 .auth-divider span {
-  background: #fff;
-  padding: 0 10px;
+  @apply bg-white px-2;
 }
 .auth-alt-btns {
-  width: 100%;
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  margin-bottom: 6px;
+  @apply w-full flex gap-3 justify-center mb-1;
 }
 .auth-alt-btn {
-  background: #fff;
-  border: 1.5px solid #cbd5e1;
-  border-radius: 8px;
-  padding: 0.6rem 1.2rem;
-  font-weight: 600;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
+  @apply bg-white border border-gray-200 rounded-lg px-4 py-2 font-semibold text-sm flex items-center gap-2 cursor-pointer shadow hover:bg-indigo-50 transition;
 }
 .auth-alt-btn.google {
-  color: #ea4335;
+  @apply text-red-500;
 }
 .auth-alt-btn.facebook {
-  color: #1877f3;
+  @apply text-blue-600;
 }
 .auth-links {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  margin-top: 6px;
+  @apply w-full flex justify-between text-xs mt-2;
 }
 .auth-links-center {
-  justify-content: center;
+  @apply justify-center;
 }
 .auth-mobile-illustration {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  background: #f1f5fe;
+  @apply w-full flex flex-col items-center justify-center p-6 bg-indigo-50 md:hidden;
 }
 .auth-mobile-illustration img {
-  width: 180px;
-  margin-bottom: 16px;
+  @apply w-44 mb-4 animate-float;
 }
 .auth-mobile-illustration-desc {
-  font-size: 18px;
-  font-weight: 600;
-  color: #2563eb;
-}
-/* Animations */
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-@keyframes confetti-fall {
-  0% { opacity: 0; transform: translateY(-40px) scale(1.2); }
-  20% { opacity: 1; }
-  100% { opacity: 0; transform: translateY(120px) scale(0.7); }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-16px); }
+  @apply text-lg font-bold text-indigo-700;
 }
 
 /* --- Navbar Styles --- */
@@ -625,4 +453,70 @@ button:hover {
   border: none;
   transition: box-shadow 0.2s, background 0.2s;
   margin-top: 10px;
+}
+
+/* --- Leaderboard Styles --- */
+.leaderboard-root {
+  @apply max-w-2xl mx-auto py-8 px-2;
+}
+.leaderboard-title {
+  @apply text-3xl font-bold text-center text-indigo-700 mb-8;
+}
+.leaderboard-list {
+  @apply flex flex-col gap-5;
+}
+.leaderboard-card {
+  @apply flex items-center bg-white rounded-2xl shadow-lg px-6 py-4 transition-all duration-200 relative;
+}
+.leaderboard-gold {
+  @apply bg-gradient-to-r from-yellow-200 via-yellow-100 to-yellow-50;
+}
+.leaderboard-silver {
+  @apply bg-gradient-to-r from-gray-200 via-gray-100 to-white;
+}
+.leaderboard-bronze {
+  @apply bg-gradient-to-r from-amber-200 via-amber-100 to-white;
+}
+.leaderboard-current {
+  @apply ring-2 ring-indigo-400 ring-offset-2;
+}
+.leaderboard-rank {
+  @apply text-2xl font-bold w-10 text-center mr-4;
+}
+.leaderboard-avatar {
+  @apply w-14 h-14 rounded-full object-cover border-4 border-indigo-100 shadow mr-5;
+}
+.leaderboard-info {
+  @apply flex flex-col flex-1;
+}
+.leaderboard-name {
+  @apply text-lg font-semibold flex items-center gap-2;
+}
+.leaderboard-country {
+  @apply text-xl ml-1;
+}
+.leaderboard-score {
+  @apply text-base font-bold text-indigo-600;
+}
+.leaderboard-badge {
+  @apply mt-1 inline-block px-2 py-0.5 rounded bg-indigo-100 text-indigo-700 text-xs font-semibold;
+}
+@media (max-width: 600px) {
+  .leaderboard-card {
+    @apply flex-col items-start px-3 py-3;
+  }
+  .leaderboard-avatar {
+    @apply w-12 h-12 mb-2 mr-0;
+  }
+  .leaderboard-rank {
+    @apply mb-1 mr-0;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }

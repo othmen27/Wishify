@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaRegStar, FaSparkles, FaBars, FaTimes, FaUserCircle } from 'react-icons/fa';
+import { FaRegStar, FaMagic, FaBars, FaTimes, FaUserCircle } from 'react-icons/fa';
 import './App.css';
 
 const navLinks = [
@@ -8,6 +8,7 @@ const navLinks = [
   { to: '/wishlist', label: 'My Wishlist', icon: <span role="img" aria-label="wishlist">🎁</span> },
   { to: '/discover', label: 'Discover', icon: <span role="img" aria-label="discover">🔍</span> },
   { to: '/about', label: 'About', icon: <span role="img" aria-label="about">📖</span> },
+  { to: '/leaderboard', label: 'Leaderboard', icon: <span role="img" aria-label="leaderboard">🏆</span> },
   // { to: '/blog', label: 'Blog', icon: <span role="img" aria-label="blog">💬</span> },
 ];
 
@@ -36,7 +37,7 @@ const Navbar = () => {
         {/* Logo */}
         <Link to="/" className="navbar-logo">
           <span className="navbar-logo-text">
-            Wishify <span className="navbar-logo-sparkle"><FaSparkles color="#fbbf24" /></span>
+            Wishify <span className="navbar-logo-sparkle"><FaMagic color="#fbbf24" /></span>
           </span>
         </Link>
         {/* Desktop Nav */}

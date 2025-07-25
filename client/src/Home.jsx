@@ -1,8 +1,9 @@
 import React from 'react';
 import { FaGift, FaListAlt, FaShareAlt } from 'react-icons/fa';
 import './App.css';
-
+import { useNavigate } from 'react-router-dom';
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div className="landing-container">
       {/* Big Headline */}
@@ -11,10 +12,10 @@ const Home = () => {
       </h1>
       {/* Call to Action */}
       <div className="landing-cta">
-        <button className="landing-btn-primary">
+        <button className="landing-btn-primary" onClick={() => navigate('/signup')}>
           Start Your Wishlist
         </button>
-        <button className="landing-btn-secondary">
+        <button className="landing-btn-secondary" onClick={() => navigate('/login')}>
           Log In
         </button>
       </div>
