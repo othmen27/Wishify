@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import '../App.css';
 
 const leaderboardData = [
   {
@@ -52,20 +52,22 @@ const medalBg = [
 
 const Leaderboard = () => {
   return (
-    <div className="leaderboard-root">
+    <div className="leaderboard-root leaderboard-thin-root">
       <h1 className="leaderboard-title">Leaderboard</h1>
-      <div className="leaderboard-list">
+      <div className="leaderboard-list leaderboard-thin-list">
         {leaderboardData.map((user, idx) => (
           <div
             key={user.name}
-            className={`leaderboard-card ${idx < 3 ? medalBg[idx] : ''} ${user.isCurrent ? 'leaderboard-current' : ''}`}
+            className={`leaderboard-card leaderboard-thin-card ${idx < 3 ? medalBg[idx] : ''} ${user.isCurrent ? 'leaderboard-current' : ''}`}
           >
-            <div className="leaderboard-rank">{idx + 1}</div>
-            <img src={user.avatar} alt={user.name} className="leaderboard-avatar" />
-            <div className="leaderboard-info">
-              <div className="leaderboard-name">{user.name} <span className="leaderboard-country">{user.country}</span></div>
-              <div className="leaderboard-score">{user.score} pts</div>
-              {user.badge && <div className="leaderboard-badge">{user.badge}</div>}
+            <div className="leaderboard-thin-left">
+              <span className="leaderboard-rank leaderboard-thin-rank">{idx + 1}</span>
+              <img src={user.avatar} alt={user.name} className="leaderboard-avatar leaderboard-thin-avatar" />
+            </div>
+            <div className="leaderboard-thin-info">
+              <span className="leaderboard-name">{user.name} <span className="leaderboard-country">{user.country}</span></span>
+              <span className="leaderboard-score">{user.score} pts</span>
+              {user.badge && <span className="leaderboard-badge">{user.badge}</span>}
             </div>
           </div>
         ))}

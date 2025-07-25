@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaGift, FaMagic, FaGoogle, FaFacebook, FaCheckCircle, FaTimesCircle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import './App.css';
+import Leaderboard from './components/Leaderboard.jsx'; 
 
 const confettiColors = ['#a5b4fc', '#fbbf24', '#60a5fa', '#f472b6', '#34d399'];
 
@@ -74,11 +75,7 @@ const Signup = () => {
     <div className="auth-root" style={{ flexDirection: window.innerWidth < 900 ? 'column' : 'row', position: 'relative' }}>
       {/* Left Side (illustration, only on desktop) */}
       <div className="auth-illustration" style={{ display: window.innerWidth < 900 ? 'none' : 'flex' }}>
-        <div>
-          <img src="https://undraw.co/api/illustrations/undraw_gift_re_qr17.svg" alt="Dreamy signup" style={{ animation: 'float 3s ease-in-out infinite' }} />
-          <div className="auth-illustration-desc">Let’s start building the life you dream of.</div>
-          <div className="auth-illustration-sub">Floating gifts, stars, and wishlists await you!</div>
-        </div>
+        <Leaderboard />
       </div>
       {/* Right Side (form) */}
       <div className="auth-form-side">
