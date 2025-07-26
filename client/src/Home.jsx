@@ -2,7 +2,7 @@ import React from 'react';
 import { FaGift, FaListAlt, FaShareAlt } from 'react-icons/fa';
 import './App.css';
 import { useNavigate } from 'react-router-dom';
-import { isLoggedIn, getCurrentUser } from './utils/auth';
+import { isLoggedIn, getCurrentUser,getWishes } from './utils/auth';
 
 const Home = () => {
   const navigate = useNavigate();

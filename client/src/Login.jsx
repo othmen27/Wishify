@@ -5,6 +5,7 @@ import './App.css';
 import Leaderboard from './components/Leaderboard';
 import { useNavigate } from 'react-router-dom';
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);

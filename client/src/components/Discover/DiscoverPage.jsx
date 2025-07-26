@@ -4,7 +4,7 @@ import DiscoverSidebar from './DiscoverSidebar';
 import DiscoverFeed from './DiscoverFeed';
 import FloatingActionButton from './FloatingActionButton';
 import '../../App.css';
-
+import { isLoggedIn, getCurrentUser,getWishes } from '../../utils/auth';
 const DiscoverPage = () => {
   return (
     <div className="discover-root">
