@@ -63,6 +63,18 @@ const Navbar = () => {
           {/* Right side: user or login/signup */}
           {loggedIn ? (
             <div className="navbar-user" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <Link to="/create" className="navbar-create-btn" style={{ 
+                background: 'linear-gradient(135deg, #10b981, #059669)', 
+                color: 'white', 
+                padding: '8px 16px', 
+                borderRadius: '8px', 
+                textDecoration: 'none',
+                fontSize: '14px',
+                fontWeight: '500',
+                transition: 'all 0.2s'
+              }}>
+                ✨ Create Wish
+              </Link>
               <span style={{ color: '#2563eb', fontWeight: 500 }}>
                 Hi, {currentUser?.username || 'User'}!
               </span>

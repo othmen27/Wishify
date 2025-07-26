@@ -10,6 +10,9 @@ const auth = async (req, res, next) => {
     }
     
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
+    console.log("Decoded JWT:", decoded);
+    
+    // Use decoded.userId instead of decoded.id
     const user = await User.findById(decoded.userId).select('-password');
     
     if (!user) {

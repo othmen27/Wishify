@@ -807,3 +807,195 @@ button:hover {
   font-size: 1.1rem;
   font-weight: 500;
 }
+
+/* Create Wish Page Styles */
+.create-wish-container {
+  @apply min-h-screen bg-gradient-to-br from-indigo-50 to-purple-50 py-8 px-4;
+}
+
+.create-wish-card {
+  @apply max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8;
+}
+
+.create-wish-header {
+  @apply text-center mb-8;
+}
+
+.create-wish-title {
+  @apply text-3xl font-bold text-indigo-700 mb-2 flex items-center justify-center gap-3;
+}
+
+.create-wish-icon {
+  @apply text-2xl;
+}
+
+.create-wish-subtitle {
+  @apply text-gray-600 text-lg;
+}
+
+.create-wish-form {
+  @apply space-y-6;
+}
+
+.form-group {
+  @apply space-y-2;
+}
+
+.form-label {
+  @apply block text-sm font-semibold text-gray-700 flex items-center gap-2;
+}
+
+.form-label-icon {
+  @apply text-indigo-500;
+}
+
+.form-input {
+  @apply w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-indigo-500 focus:outline-none transition-colors;
+}
+
+.form-input.error {
+  @apply border-red-400;
+}
+
+.form-textarea {
+  @apply w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-indigo-500 focus:outline-none transition-colors;
+  resize: vertical;
+}
+
+.form-help {
+  @apply text-sm text-gray-500 mt-1;
+}
+
+.form-error {
+  @apply text-sm text-red-500 mt-1;
+}
+
+.submit-error {
+  @apply text-center p-3 bg-red-50 border border-red-200 rounded-lg;
+}
+
+.image-preview {
+  @apply mt-3 p-2 border border-gray-200 rounded-lg;
+}
+
+.image-preview img {
+  @apply max-w-full h-auto max-h-48 rounded object-cover;
+}
+
+/* Category Pills */
+.category-grid {
+  @apply grid grid-cols-2 md:grid-cols-3 gap-3;
+}
+
+.category-pill {
+  @apply px-4 py-3 rounded-lg border-2 border-gray-200 text-sm font-medium transition-all duration-200 hover:scale-105;
+  background: linear-gradient(135deg, var(--category-color)10, var(--category-color)20);
+  border-color: var(--category-color)30;
+}
+
+.category-pill.selected {
+  @apply border-2 shadow-md;
+  background: linear-gradient(135deg, var(--category-color)20, var(--category-color)30);
+  border-color: var(--category-color);
+  color: var(--category-color);
+  font-weight: 600;
+}
+
+.category-pill:hover {
+  border-color: var(--category-color);
+  background: linear-gradient(135deg, var(--category-color)15, var(--category-color)25);
+}
+
+/* Priority Buttons */
+.priority-buttons {
+  @apply flex gap-3;
+}
+
+.priority-btn {
+  @apply flex-1 px-4 py-3 rounded-lg border-2 border-gray-200 text-sm font-medium transition-all duration-200;
+  background: linear-gradient(135deg, var(--priority-color)10, var(--priority-color)20);
+  border-color: var(--priority-color)30;
+}
+
+.priority-btn.selected {
+  @apply border-2 shadow-md;
+  background: linear-gradient(135deg, var(--priority-color)20, var(--priority-color)30);
+  border-color: var(--priority-color);
+  color: var(--priority-color);
+  font-weight: 600;
+}
+
+.priority-btn:hover {
+  border-color: var(--priority-color);
+  background: linear-gradient(135deg, var(--priority-color)15, var(--priority-color)25);
+}
+
+/* Visibility Toggle */
+.visibility-toggle {
+  @apply flex gap-3;
+}
+
+.visibility-btn {
+  @apply flex-1 px-4 py-3 rounded-lg border-2 border-gray-200 text-sm font-medium transition-all duration-200 flex items-center justify-center gap-2;
+  background: linear-gradient(135deg, #6b728010, #6b728020);
+  border-color: #6b728030;
+}
+
+.visibility-btn.selected {
+  @apply border-2 shadow-md;
+  background: linear-gradient(135deg, #2563eb20, #2563eb30);
+  border-color: #2563eb;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.visibility-btn:hover {
+  border-color: #2563eb;
+  background: linear-gradient(135deg, #2563eb15, #2563eb25);
+}
+
+/* Submit Button */
+.submit-btn {
+  @apply w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white py-4 rounded-lg font-semibold text-lg transition-all duration-200 flex items-center justify-center gap-3 hover:from-indigo-600 hover:to-purple-700 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100;
+}
+
+.submit-btn .spinner {
+  @apply animate-spin;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .create-wish-card {
+    @apply p-6;
+  }
+  
+  .create-wish-title {
+    @apply text-2xl;
+  }
+  
+  .category-grid {
+    @apply grid-cols-2;
+  }
+  
+  .priority-buttons {
+    @apply flex-col;
+  }
+  
+  .visibility-toggle {
+    @apply flex-col;
+  }
+}
+
+@media (max-width: 480px) {
+  .create-wish-container {
+    @apply py-4 px-2;
+  }
+  
+  .create-wish-card {
+    @apply p-4;
+  }
+  
+  .category-grid {
+    @apply grid-cols-1;
+  }
+}

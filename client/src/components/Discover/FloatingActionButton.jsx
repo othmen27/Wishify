@@ -1,11 +1,15 @@
 import React from 'react';
 import { FaPlus } from 'react-icons/fa';
 import '../../App.css';
+import { useNavigate } from 'react-router-dom';
 
-const FloatingActionButton = () => (
-  <button className="discover-fab">
-    <FaPlus /> Create Wishlist
-  </button>
-);
+const FloatingActionButton = () => {
+  const navigate = useNavigate();
+  return (
+    <button className="discover-fab" onClick={() => navigate('/create')}>
+      <FaPlus /> Create Wishlist
+    </button>
+  );
+};
 
 export default FloatingActionButton; 
