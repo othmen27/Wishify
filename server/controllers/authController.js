@@ -99,4 +99,90 @@ exports.getCurrentUser = async (req, res) => {
     console.error('Get current user error:', error);
     res.status(500).json({ message: 'Server error.' });
   }
+};
+
+exports.updateProfile = async (req, res) => {
+  try {
+    console.log('=== Profile Update Request ===');
+    console.log('Request method:', req.method);
+    console.log('Request URL:', req.url);
+    console.log('Request body:', req.body);
+    console.log('Request file:', req.file);
+    console.log('User from auth middleware:', req.user);
+    
+    // Check if req.body exists and has content
+    if (!req.body) {
+      console.log('❌ req.body is undefined');
+      return res.status(400).json({ message: 'Request body is missing.' });
+    }
+    
+    if (Object.keys(req.body).length === 0 && !req.file) {
+      console.log('❌ req.body is empty and no file uploaded');
+      return res.status(400).json({ message: 'No data provided for update.' });
+    }
+
+    const { username, paypalEmail, cashappUsername } = req.body;
+    console.log('✅ Extracted data:', { username, paypalEmail, cashappUsername });
+    
+    const userId = req.user._id;
+    console.log('✅ User ID:', userId);
+
+    // Validate input
+    if (paypalEmail && !paypalEmail.includes('@')) {
+      return res.status(400).json({ message: 'Invalid PayPal email format.' });
+    }
+
+    if (username && username.trim().length < 3) {
+      return res.status(400).json({ message: 'Username must be at least 3 characters long.' });
+    }
+
+    // Check if username is already taken (if username is being updated)
+    if (username && username !== req.user.username) {
+      const existingUser = await User.findOne({ username: username.trim() });
+      if (existingUser) {
+        return res.status(409).json({ message: 'Username already taken.' });
+      }
+    }
+
+    // Handle profile image upload
+    let profileImageUrl = req.user.profileImage; // Keep existing image if no new one
+    if (req.file) {
+      // Create the URL for the uploaded file
+      profileImageUrl = `/uploads/${req.file.filename}`;
+      console.log('✅ New profile image uploaded:', profileImageUrl);
+    }
+
+    // Update user profile
+    const updateData = {
+      paypalEmail: paypalEmail || null,
+      cashappUsername: cashappUsername || null,
+      profileImage: profileImageUrl
+    };
+
+    // Only update username if provided and different
+    if (username && username.trim() !== req.user.username) {
+      updateData.username = username.trim();
+    }
+
+    console.log('✅ Update data:', updateData);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      updateData,
+      { new: true, select: '-password' } // Return updated user without password
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    console.log('✅ Profile updated successfully for user:', { username: updatedUser.username, id: updatedUser._id });
+    res.json({ 
+      message: 'Profile updated successfully.',
+      user: updatedUser
+    });
+  } catch (error) {
+    console.error('❌ Profile update error:', error);
+    res.status(500).json({ message: 'Server error.', error: error.message });
+  }
 }; 

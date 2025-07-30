@@ -7,7 +7,10 @@ import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import Navbar from './Navbar.jsx';
 import Discover from './Discover.jsx';
+import WishDetail from './components/WishDetail.jsx';
+import Profile from './Profile.jsx';
 import './App.css';
+
 function App() {
   return (
     <Router>
@@ -20,6 +23,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/discover" element={<Discover />} />
+          <Route path="/wish/:id" element={<WishDetail />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </Router>

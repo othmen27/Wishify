@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { register, login, getCurrentUser } = require('../controllers/authController');
+const { register, login, getCurrentUser, updateProfile } = require('../controllers/authController');
 const auth = require('../middleware/auth');
+const upload = require('../middleware/upload');
 const User = require('../models/User');
 
 router.post('/register', register);
 router.post('/login', login);
 router.get('/me', auth, getCurrentUser);
+router.put('/profile', auth, upload.single('profileImage'), updateProfile);
 
 // Temporary route to view all users (remove in production!)
 router.get('/users', async (req, res) => {

@@ -75,10 +75,56 @@ const Navbar = () => {
               }}>
                 ✨ Create Wish
               </Link>
-              <span style={{ color: '#2563eb', fontWeight: 500 }}>
+              <Link 
+                to="/profile" 
+                style={{ 
+                  color: '#2563eb', 
+                  fontWeight: 500,
+                  textDecoration: 'none',
+                  cursor: 'pointer',
+                  transition: 'color 0.2s'
+                }}
+                onMouseEnter={(e) => e.target.style.color = '#1d4ed8'}
+                onMouseLeave={(e) => e.target.style.color = '#2563eb'}
+              >
                 Hi, {currentUser?.username || 'User'}!
-              </span>
-              <FaUserCircle size={28} color="#2563eb" style={{ cursor: 'pointer' }} />
+              </Link>
+              {/* Profile Picture */}
+              <Link to="/profile" className="navbar-profile-pic" style={{ cursor: 'pointer' }}>
+                {currentUser?.profileImage ? (
+                  <img 
+                    src={`http://localhost:5000${currentUser.profileImage}`}
+                    alt="Profile"
+                    style={{
+                      width: '32px',
+                      height: '32px',
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                      border: '2px solid #2563eb'
+                    }}
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.nextSibling.style.display = 'flex';
+                    }}
+                  />
+                ) : (
+                  <div style={{
+                    width: '32px',
+                    height: '32px',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    border: '2px solid #2563eb'
+                  }}>
+                    {currentUser?.username?.charAt(0)?.toUpperCase() || 'U'}
+                  </div>
+                )}
+              </Link>
               <button 
                 onClick={handleLogout}
                 style={{ 
@@ -127,10 +173,69 @@ const Navbar = () => {
             ))}
             {loggedIn ? (
               <div className="navbar-mobile-user" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, marginTop: 18 }}>
-                <span style={{ color: '#2563eb', fontWeight: 500 }}>
+                <Link to="/create" className="navbar-mobile-create-btn" style={{ 
+                  background: 'linear-gradient(135deg, #10b981, #059669)', 
+                  color: 'white', 
+                  padding: '8px 16px', 
+                  borderRadius: '8px', 
+                  textDecoration: 'none',
+                  fontSize: '14px',
+                  fontWeight: '500',
+                  width: '100%',
+                  textAlign: 'center'
+                }}>
+                  ✨ Create Wish
+                </Link>
+                <Link 
+                  to="/profile"
+                  style={{ 
+                    color: '#2563eb', 
+                    fontWeight: 500,
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                    transition: 'color 0.2s'
+                  }}
+                  onMouseEnter={(e) => e.target.style.color = '#1d4ed8'}
+                  onMouseLeave={(e) => e.target.style.color = '#2563eb'}
+                >
                   Hi, {currentUser?.username || 'User'}!
-                </span>
-                <FaUserCircle size={28} color="#2563eb" style={{ cursor: 'pointer' }} />
+                </Link>
+                {/* Mobile Profile Picture */}
+                <Link to="/profile" className="navbar-mobile-profile-pic" style={{ cursor: 'pointer' }}>
+                  {currentUser?.profileImage ? (
+                    <img 
+                      src={`http://localhost:5000${currentUser.profileImage}`}
+                      alt="Profile"
+                      style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                        border: '2px solid #2563eb'
+                      }}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                  ) : (
+                    <div style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: '16px',
+                      fontWeight: 'bold',
+                      border: '2px solid #2563eb'
+                    }}>
+                      {currentUser?.username?.charAt(0)?.toUpperCase() || 'U'}
+                    </div>
+                  )}
+                </Link>
                 <button 
                   onClick={handleLogout}
                   style={{ 

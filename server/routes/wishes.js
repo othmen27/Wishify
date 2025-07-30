@@ -17,7 +17,7 @@ router.get('/my', auth, getUserWishes);
 // Get all public wishes (no authentication required)
 router.get('/public', getPublicWishes);
 
-// Get a specific wish (requires authentication if private)
-router.get('/:id', auth, getWish);
+// Get a specific wish (authentication optional for public wishes)
+router.get('/:id', getWish);
 
 module.exports = router; 

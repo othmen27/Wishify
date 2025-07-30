@@ -65,7 +65,7 @@ exports.getUserWishes = async (req, res) => {
 exports.getPublicWishes = async (req, res) => {
   try {
     const wishes = await Wish.find({ visibility: 'public' })
-      .populate('user', 'username')
+      .populate('user', 'username profileImage')
       .sort({ createdAt: -1 });
     res.json({ wishes });
   } catch (error) {
@@ -77,17 +77,27 @@ exports.getPublicWishes = async (req, res) => {
 // Get a single wish
 exports.getWish = async (req, res) => {
   try {
-    const wish = await Wish.findById(req.params.id).populate('user', 'username');
+    const wish = await Wish.findById(req.params.id).populate('user', 'username profileImage');
     if (!wish) {
       return res.status(404).json({ message: 'Wish not found' });
     }
     
-    // Check if user can view this wish (owner or public)
-    if (wish.visibility === 'private' && wish.user._id.toString() !== req.user._id.toString()) {
+    // If wish is public, allow access without authentication
+    if (wish.visibility === 'public') {
+      return res.json(wish);
+    }
+    
+    // For private wishes, require authentication
+    if (!req.user) {
+      return res.status(401).json({ message: 'Authentication required' });
+    }
+    
+    // Check if user can view this wish (owner)
+    if (wish.user._id.toString() !== req.user._id.toString()) {
       return res.status(403).json({ message: 'Access denied' });
     }
     
-    res.json({ wish });
+    res.json(wish);
   } catch (error) {
     console.error('Error fetching wish:', error);
     res.status(500).json({ message: 'Server error', error: error.message });

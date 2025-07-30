@@ -20,6 +20,21 @@ const userSchema = new mongoose.Schema({
   phonenumber: {
     type: String,
     required: false
+  },
+  paypalEmail: {
+    type: String,
+    required: false,
+    trim: true,
+    lowercase: true
+  },
+  cashappUsername: {
+    type: String,
+    required: false,
+    trim: true
+  },
+  profileImage: {
+    type: String,
+    required: false
   }
 }, { timestamps: true });
 
