@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { register, login, getCurrentUser, updateProfile } = require('../controllers/authController');
+const { register, login, getCurrentUser, updateProfile, getLeaderboard } = require('../controllers/authController');
 const auth = require('../middleware/auth');
 const upload = require('../middleware/upload');
 const User = require('../models/User');
@@ -19,5 +19,8 @@ router.get('/users', async (req, res) => {
     res.status(500).json({ message: 'Error fetching users', error: error.message });
   }
 });
+
+// Get leaderboard
+router.get('/leaderboard', getLeaderboard);
 
 module.exports = router; 

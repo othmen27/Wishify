@@ -12,20 +12,34 @@ const Home = () => {
   const currentUser = getCurrentUser();
   const [recentWishes, setRecentWishes] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [failedImages, setFailedImages] = useState(new Set());
   
   usePageTitle('Home');
+
+  const handleImageError = (wishId) => {
+    setFailedImages(prev => new Set(prev).add(wishId));
+  };
 
   useEffect(() => {
     const fetchRecentWishes = async () => {
       try {
-        const response = await fetch('/api/wishes/public');
+        setLoading(true);
+        const response = await fetch('http://localhost:5000/api/wishes/public');
         if (response.ok) {
-          const wishes = await response.json();
+          const data = await response.json();
+          console.log('Fetched data:', data); // Debug log
+          // Extract wishes array from the response
+          const wishes = data.wishes || data || [];
+          console.log('Extracted wishes:', wishes); // Debug log
           // Get the 6 most recent wishes
           setRecentWishes(wishes.slice(0, 6));
+        } else {
+          console.error('Failed to fetch wishes:', response.status, response.statusText);
         }
       } catch (error) {
         console.error('Error fetching recent wishes:', error);
+        setError('Failed to load recent wishes');
       } finally {
         setLoading(false);
       }
@@ -123,6 +137,8 @@ const Home = () => {
             
             {loading ? (
               <div className="recent-wishes-loading">Loading recent wishes...</div>
+            ) : error ? (
+              <div className="recent-wishes-error">{error}</div>
             ) : recentWishes.length > 0 ? (
               <div className="recent-wishes-grid">
                 {recentWishes.map(wish => (
@@ -133,9 +149,18 @@ const Home = () => {
                   >
                     <div className="recent-wish-header">
                       <div className="recent-wish-user">
-                        <div className="recent-wish-avatar">
-                          {wish.user?.username?.charAt(0)?.toUpperCase() || 'A'}
-                        </div>
+                        {wish.user?.profileImage && !failedImages.has(wish._id) ? (
+                          <img 
+                            src={wish.user.profileImage} 
+                            alt={wish.user.username} 
+                            className="recent-wish-avatar-img"
+                            onError={() => handleImageError(wish._id)}
+                          />
+                        ) : (
+                          <div className="recent-wish-avatar">
+                            {wish.user?.username?.charAt(0)?.toUpperCase() || 'A'}
+                          </div>
+                        )}
                         <span className="recent-wish-username">{wish.user?.username || 'Anonymous'}</span>
                       </div>
                       <span className="recent-wish-date">{formatDate(wish.createdAt)}</span>

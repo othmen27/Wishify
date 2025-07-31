@@ -1,4 +1,5 @@
 const Wish = require('../models/Wish');
+const User = require('../models/User');
 
 // Create a new wish
 exports.createWish = async (req, res) => {
@@ -30,6 +31,14 @@ exports.createWish = async (req, res) => {
       await wish.save();
       console.log('✅ Wish saved to database successfully!');
       console.log('Wish ID:', wish._id);
+      
+      // Award points to user for creating a wish
+      const pointsToAward = 10; // Base points for creating a wish
+      await User.findByIdAndUpdate(req.user._id, {
+        $inc: { points: pointsToAward }
+      });
+      console.log(`✅ Awarded ${pointsToAward} points to user ${req.user._id}`);
+      
       console.log('==========================');
     } catch (saveError) {
       console.error('❌ ERROR saving wish to database:', saveError);

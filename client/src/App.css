@@ -162,6 +162,9 @@ button:hover {
 .recent-wishes-empty {
   @apply text-center text-gray-500 py-8;
 }
+.recent-wishes-error {
+  @apply text-center text-red-500 py-8;
+}
 .recent-wishes-grid {
   @apply grid grid-cols-1 md:grid-cols-2 gap-4;
 }
@@ -1305,4 +1308,16 @@ button:hover {
 }
 .category-dropdown-check {
   @apply text-blue-600 font-bold;
+}
+.recent-wish-avatar-img {
+  @apply w-8 h-8 rounded-full object-cover border-2 border-gray-200;
+}
+.leaderboard-loading {
+  @apply text-center text-gray-500 py-8;
+}
+.leaderboard-error {
+  @apply text-center text-red-500 py-8;
+}
+.leaderboard-avatar-placeholder {
+  @apply bg-blue-500 text-white flex items-center justify-center font-bold;
 }

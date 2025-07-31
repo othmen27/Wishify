@@ -186,3 +186,17 @@ exports.updateProfile = async (req, res) => {
     res.status(500).json({ message: 'Server error.', error: error.message });
   }
 }; 
+
+// Get leaderboard data
+exports.getLeaderboard = async (req, res) => {
+  try {
+    const users = await User.find({}, 'username profileImage points')
+      .sort({ points: -1 })
+      .limit(10);
+    
+    res.json({ users });
+  } catch (error) {
+    console.error('Error fetching leaderboard:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+}; 
