@@ -148,12 +148,25 @@ const WishlistCard = ({ wishlist }) => {
                 height: '40px',
                 borderRadius: '50%',
                 objectFit: 'cover',
-                border: '2px solid #e5e7eb'
+                border: '2px solid #e5e7eb',
+                cursor: 'pointer'
               }}
               onError={(e) => {
                 // Fallback to initial avatar if image fails to load
                 e.target.style.display = 'none';
                 e.target.nextSibling.style.display = 'flex';
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (wish.user?.username) {
+                  navigate(`/user/${wish.user.username}`);
+                }
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.opacity = '0.8';
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.opacity = '1';
               }}
             />
           ) : null}
@@ -170,7 +183,20 @@ const WishlistCard = ({ wishlist }) => {
               color: 'white',
               fontSize: '16px',
               fontWeight: 'bold',
-              border: '2px solid #e5e7eb'
+              border: '2px solid #e5e7eb',
+              cursor: 'pointer'
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              if (wish.user?.username) {
+                navigate(`/user/${wish.user.username}`);
+              }
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.opacity = '0.8';
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.opacity = '1';
             }}
           >
             {wish.user?.username?.charAt(0)?.toUpperCase() || 'A'}

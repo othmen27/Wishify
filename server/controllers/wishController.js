@@ -204,4 +204,65 @@ exports.trackView = async (req, res) => {
     console.error('Error tracking view:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
+};
+
+// Update a wish
+exports.updateWish = async (req, res) => {
+  try {
+    const wish = await Wish.findById(req.params.id);
+    if (!wish) {
+      return res.status(404).json({ message: 'Wish not found' });
+    }
+
+    // Check if user owns this wish
+    if (wish.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'Access denied' });
+    }
+
+    // Update allowed fields
+    const allowedUpdates = ['title', 'description', 'link', 'category', 'priority', 'visibility', 'granted'];
+    const updates = {};
+    
+    allowedUpdates.forEach(field => {
+      if (req.body[field] !== undefined) {
+        updates[field] = req.body[field];
+      }
+    });
+
+    const updatedWish = await Wish.findByIdAndUpdate(
+      req.params.id,
+      updates,
+      { new: true, runValidators: true }
+    );
+
+    res.json({
+      message: 'Wish updated successfully',
+      wish: updatedWish
+    });
+  } catch (error) {
+    console.error('Error updating wish:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+// Delete a wish
+exports.deleteWish = async (req, res) => {
+  try {
+    const wish = await Wish.findById(req.params.id);
+    if (!wish) {
+      return res.status(404).json({ message: 'Wish not found' });
+    }
+
+    // Check if user owns this wish
+    if (wish.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'Access denied' });
+    }
+
+    await Wish.findByIdAndDelete(req.params.id);
+
+    res.json({ message: 'Wish deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting wish:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
 }; 

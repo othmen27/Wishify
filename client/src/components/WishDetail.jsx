@@ -187,7 +187,14 @@ const WishDetail = () => {
         {/* Header */}
         <div className="p-6 border-b border-gray-100">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200">
+            <div 
+              className="w-12 h-12 rounded-full overflow-hidden border-2 border-gray-200 cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={() => {
+                if (wish.user?.username) {
+                  navigate(`/user/${wish.user.username}`);
+                }
+              }}
+            >
               {wish.user?.profileImage ? (
                 <img 
                   src={`http://localhost:5000${wish.user.profileImage}`}
@@ -213,7 +220,16 @@ const WishDetail = () => {
             <div className="flex-1">
               <h1 className="text-2xl font-bold text-gray-900 mb-2">{wish.title}</h1>
               <div className="flex items-center gap-4 text-sm text-gray-600">
-                <span>By {wish.user?.username || 'Anonymous'}</span>
+                <span 
+                  className="cursor-pointer hover:text-blue-600 transition-colors"
+                  onClick={() => {
+                    if (wish.user?.username) {
+                      navigate(`/user/${wish.user.username}`);
+                    }
+                  }}
+                >
+                  By {wish.user?.username || 'Anonymous'}
+                </span>
                 <span>•</span>
                 <span>{formatDate(wish.createdAt)}</span>
               </div>

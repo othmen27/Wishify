@@ -157,15 +157,39 @@ const Home = () => {
                           <img 
                             src={wish.user.profileImage} 
                             alt={wish.user.username} 
-                            className="recent-wish-avatar-img"
+                            className="recent-wish-avatar-img cursor-pointer hover:opacity-80 transition-opacity"
                             onError={() => handleImageError(wish._id)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (wish.user?.username) {
+                                navigate(`/user/${wish.user.username}`);
+                              }
+                            }}
                           />
                         ) : (
-                          <div className="recent-wish-avatar">
+                          <div 
+                            className="recent-wish-avatar cursor-pointer hover:opacity-80 transition-opacity"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (wish.user?.username) {
+                                navigate(`/user/${wish.user.username}`);
+                              }
+                            }}
+                          >
                             {wish.user?.username?.charAt(0)?.toUpperCase() || 'A'}
                           </div>
                         )}
-                        <span className="recent-wish-username">{wish.user?.username || 'Anonymous'}</span>
+                        <span 
+                          className="recent-wish-username cursor-pointer hover:text-blue-600 transition-colors"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            if (wish.user?.username) {
+                              navigate(`/user/${wish.user.username}`);
+                            }
+                          }}
+                        >
+                          {wish.user?.username || 'Anonymous'}
+                        </span>
                       </div>
                       <span className="recent-wish-date">{formatDate(wish.createdAt)}</span>
                     </div>
