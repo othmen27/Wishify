@@ -1489,3 +1489,96 @@ button:hover {
 .image-size {
   @apply block text-gray-500;
 }
+
+/* Profile Edit Styles */
+.profile-image-upload {
+  @apply flex items-center gap-4;
+}
+
+.profile-image-preview {
+  @apply relative;
+}
+
+.profile-preview-img {
+  @apply w-20 h-20 rounded-full object-cover border-2 border-gray-200;
+}
+
+.profile-image-placeholder {
+  @apply w-20 h-20 rounded-full bg-gray-100 border-2 border-gray-200 flex items-center justify-center text-gray-400;
+}
+
+.profile-image-input {
+  @apply hidden;
+}
+
+.profile-image-button {
+  @apply px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors cursor-pointer flex items-center gap-2;
+}
+
+.payment-methods {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+
+.payment-method {
+  @apply space-y-2;
+}
+
+.payment-label {
+  @apply flex items-center gap-2 text-sm font-medium text-gray-700;
+}
+
+.payment-icon {
+  @apply text-lg;
+}
+
+.verification-section {
+  @apply flex items-center gap-4;
+}
+
+.verification-btn {
+  @apply px-4 py-2 rounded-md font-medium transition-colors flex items-center gap-2;
+}
+
+.verification-btn.wip-btn {
+  @apply bg-gray-300 text-gray-600 cursor-not-allowed;
+}
+
+.verification-status {
+  @apply flex items-center;
+}
+
+.verification-badge {
+  @apply px-3 py-1 rounded-full text-xs font-medium;
+}
+
+.verification-badge.unverified {
+  @apply bg-gray-100 text-gray-600;
+}
+
+.verification-badge.verified {
+  @apply bg-green-100 text-green-700;
+}
+
+.profile-actions {
+  @apply flex gap-4 mt-8;
+}
+
+.profile-btn-primary {
+  @apply px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors flex items-center gap-2 font-medium;
+}
+
+.profile-btn-secondary {
+  @apply px-6 py-3 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors flex items-center gap-2 font-medium;
+}
+
+.profile-success {
+  @apply bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-md mb-6 flex items-center gap-2;
+}
+
+.profile-error {
+  @apply bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mb-6;
+}
+
+.profile-loading {
+  @apply text-center text-gray-500 py-8;
+}

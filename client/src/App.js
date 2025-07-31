@@ -8,6 +8,7 @@ import Navbar from './Navbar.jsx';
 import Discover from './Discover.jsx';
 import WishDetail from './components/WishDetail.jsx';
 import Profile from './Profile.jsx';
+import ProfileEdit from './components/ProfileEdit.jsx';
 import UserProfile from './components/UserProfile.jsx';
 import './App.css';
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/discover" element={<Discover />} />
           <Route path="/wish/:id" element={<WishDetail />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/edit" element={<ProfileEdit />} />
           <Route path="/user/:username" element={<UserProfile />} />
         </Routes>
       </div>

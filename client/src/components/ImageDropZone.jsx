@@ -5,6 +5,7 @@ import '../App.css';
 const ImageDropZone = ({ onImagesChange, maxImages = 4 }) => {
   const [images, setImages] = useState([]);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [failedImages, setFailedImages] = useState(new Set());
   const fileInputRef = useRef(null);
 
   const handleFiles = useCallback((files) => {
@@ -57,7 +58,17 @@ const ImageDropZone = ({ onImagesChange, maxImages = 4 }) => {
       onImagesChange(newImages);
       return newImages;
     });
+    // Also remove from failed images set
+    setFailedImages(prev => {
+      const newSet = new Set(prev);
+      newSet.delete(imageId);
+      return newSet;
+    });
   }, [onImagesChange]);
+
+  const handleImageError = useCallback((imageId) => {
+    setFailedImages(prev => new Set(prev).add(imageId));
+  }, []);
 
   const openFileDialog = () => {
     fileInputRef.current?.click();
@@ -111,18 +122,18 @@ const ImageDropZone = ({ onImagesChange, maxImages = 4 }) => {
           <div className="previews-grid">
             {images.map((image) => (
               <div key={image.id} className="image-preview-item">
-                <img 
-                  src={image.preview} 
-                  alt="Preview" 
-                  className="preview-image"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'flex';
-                  }}
-                />
-                <div className="preview-fallback" style={{ display: 'none' }}>
-                  <FaImage />
-                </div>
+                {!failedImages.has(image.id) ? (
+                  <img 
+                    src={image.preview} 
+                    alt="Preview" 
+                    className="preview-image"
+                    onError={() => handleImageError(image.id)}
+                  />
+                ) : (
+                  <div className="preview-fallback">
+                    <FaImage />
+                  </div>
+                )}
                 <button
                   type="button"
                   className="remove-image-btn"
