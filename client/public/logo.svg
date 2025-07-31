@@ -1,0 +1,20 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="256" fill="#3b82f6"/>
+  
+  <!-- Magic wand -->
+  <path d="M320 160L352 192L384 160L352 128L320 160Z" fill="#fbbf24"/>
+  <path d="M352 192L384 224L416 192L384 160L352 192Z" fill="#fbbf24"/>
+  <path d="M384 224L416 256L448 224L416 192L384 224Z" fill="#fbbf24"/>
+  
+  <!-- Wand handle -->
+  <rect x="320" y="256" width="8" height="120" rx="4" fill="#fbbf24"/>
+  
+  <!-- Sparkles -->
+  <circle cx="440" cy="160" r="8" fill="#fbbf24"/>
+  <circle cx="460" cy="140" r="6" fill="#fbbf24"/>
+  <circle cx="420" cy="140" r="4" fill="#fbbf24"/>
+  
+  <!-- Text "W" -->
+  <path d="M120 320L140 200L160 280L180 200L200 320H180L170 240L150 320H120Z" fill="white"/>
+</svg> 

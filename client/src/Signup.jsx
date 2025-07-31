@@ -4,6 +4,7 @@ import './App.css';
 import Leaderboard from './components/Leaderboard.jsx'; 
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import usePageTitle from './hooks/usePageTitle';
 
 const confettiColors = ['#a5b4fc', '#fbbf24', '#60a5fa', '#f472b6', '#34d399'];
 
@@ -23,6 +24,7 @@ function getPasswordStrength(password) {
 
 const Signup = () => {
   const navigate = useNavigate();
+  usePageTitle('Sign Up');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

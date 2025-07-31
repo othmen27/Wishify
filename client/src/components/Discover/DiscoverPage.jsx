@@ -1,21 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DiscoverTopBar from './DiscoverTopBar';
-import DiscoverSidebar from './DiscoverSidebar';
 import DiscoverFeed from './DiscoverFeed';
 import FloatingActionButton from './FloatingActionButton';
 import '../../App.css';
-import { isLoggedIn, getCurrentUser,getWishes } from '../../utils/auth';
+import { isLoggedIn, getCurrentUser, getWishes } from '../../utils/auth';
+
 const DiscoverPage = () => {
+  const [filters, setFilters] = useState({
+    category: 'All'
+  });
+
+  const handleFilterChange = (filterType, value) => {
+    setFilters(prev => ({
+      ...prev,
+      [filterType]: value
+    }));
+  };
+
   return (
     <div className="discover-root">
       <DiscoverTopBar />
       <div className="discover-main-layout">
         <div className="discover-feed-area">
-          <DiscoverFeed />
+          <DiscoverFeed filters={filters} />
         </div>
-        <aside className="discover-sidebar-area">
-          <DiscoverSidebar />
-        </aside>
       </div>
       <FloatingActionButton />
     </div>

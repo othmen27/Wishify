@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { FaPaypal, FaDollarSign, FaUser, FaEnvelope, FaSave, FaArrowLeft, FaCamera, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import { isLoggedIn, getCurrentUser, logout } from './utils/auth';
 import './App.css';
+import usePageTitle from './hooks/usePageTitle';
 
 const Profile = () => {
   const navigate = useNavigate();
+  usePageTitle('Profile');
+  
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');

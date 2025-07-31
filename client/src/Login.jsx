@@ -4,8 +4,12 @@ import axios from 'axios';
 import './App.css';
 import Leaderboard from './components/Leaderboard';
 import { useNavigate } from 'react-router-dom';
+import usePageTitle from './hooks/usePageTitle';
+
 const Login = () => {
   const navigate = useNavigate();
+  usePageTitle('Login');
+  
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);

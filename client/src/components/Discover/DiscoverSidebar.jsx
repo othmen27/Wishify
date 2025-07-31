@@ -1,26 +1,51 @@
 import React from 'react';
-import Leaderboard from '../Leaderboard';
 import '../../App.css';
 
-const DiscoverSidebar = () => (
-  <div className="discover-sidebar">
-    <Leaderboard />
-    <div className="discover-filters">
-      <h3>Filters</h3>
-      <div>
-        <label>Category:</label>
-        <select><option>All</option><option>Tech</option><option>Books</option><option>Fashion</option></select>
+const DiscoverSidebar = ({ filters, onFilterChange }) => {
+  const categories = [
+    { id: 'tech', label: 'Tech' },
+    { id: 'books', label: 'Books' },
+    { id: 'fashion', label: 'Fashion' },
+    { id: 'more', label: 'More...' }
+  ];
+
+  const handleCategoryClick = (categoryId) => {
+    onFilterChange('category', categoryId);
+  };
+
+  return (
+    <div className="discover-sidebar">
+      {/* Search Bar */}
+      <div className="discover-search-section">
+        <input 
+          type="text" 
+          placeholder="Search wishlists..." 
+          className="discover-search-input"
+        />
       </div>
-      <div>
-        <label>Region:</label>
-        <select><option>All</option><option>US</option><option>UK</option><option>CA</option></select>
+
+      {/* Trending Header */}
+      <div className="discover-trending-header">
+        <span className="discover-trending-title">Trending</span>
+        <span className="discover-trending-arrow">▼</span>
       </div>
-      <div>
-        <label>Sort by:</label>
-        <select><option>Most Recent</option><option>Most Popular</option></select>
+
+      {/* Category Buttons */}
+      <div className="discover-categories">
+        {categories.map(category => (
+          <button
+            key={category.id}
+            className={`discover-category-btn ${
+              filters.category === category.id ? 'discover-category-btn-active' : ''
+            }`}
+            onClick={() => handleCategoryClick(category.id)}
+          >
+            {category.label}
+          </button>
+        ))}
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default DiscoverSidebar; 

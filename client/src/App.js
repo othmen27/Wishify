@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Home.jsx';
-import PostWish from './PostWish.jsx';
 import Create from './Create.jsx';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
@@ -18,7 +17,6 @@ function App() {
       <div className="px-4 py-6 min-h-screen bg-gray-50">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/post" element={<PostWish />} />
           <Route path="/create" element={<Create />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />

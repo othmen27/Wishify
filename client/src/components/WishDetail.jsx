@@ -10,6 +10,18 @@ const WishDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Set page title based on wish data
+  useEffect(() => {
+    const baseTitle = 'Wishify';
+    if (wish) {
+      document.title = `${baseTitle} | ${wish.title || 'Wish Details'}`;
+    } else if (error) {
+      document.title = `${baseTitle} | Wish Not Found`;
+    } else {
+      document.title = `${baseTitle} | Wish Details`;
+    }
+  }, [wish, error]);
+
   useEffect(() => {
     const fetchWish = async () => {
       try {

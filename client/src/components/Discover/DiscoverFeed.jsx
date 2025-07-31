@@ -3,8 +3,9 @@ import WishlistCard from './WishlistCard';
 import '../../App.css';
 import { getPublicWishes } from '../../utils/auth';
 
-const DiscoverFeed = () => {
+const DiscoverFeed = ({ filters }) => {
   const [wishes, setWishes] = useState([]);
+  const [filteredWishes, setFilteredWishes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -25,6 +26,26 @@ const DiscoverFeed = () => {
     fetchWishes();
   }, []);
 
+  // Apply category filter
+  useEffect(() => {
+    let filtered = [...wishes];
+
+    // Apply category filter
+    if (filters.category && filters.category !== 'All') {
+      if (filters.category === 'more') {
+        // "More" shows "other" category wishes
+        filtered = filtered.filter(wish => wish.category === 'other');
+      } else {
+        filtered = filtered.filter(wish => wish.category === filters.category);
+      }
+    }
+
+    // Always sort by most recent
+    filtered.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    setFilteredWishes(filtered);
+  }, [wishes, filters.category]);
+
   if (loading) {
     return (
       <div className="discover-feed">
@@ -41,17 +62,22 @@ const DiscoverFeed = () => {
     );
   }
 
-  if (wishes.length === 0) {
+  if (filteredWishes.length === 0) {
     return (
       <div className="discover-feed">
-        <div className="no-wishes">No public wishes found. Be the first to share your wishes!</div>
+        <div className="no-wishes">
+          {wishes.length === 0 
+            ? 'No public wishes found. Be the first to share your wishes!'
+            : 'No wishes match your current filter. Try selecting a different category.'
+          }
+        </div>
       </div>
     );
   }
 
   return (
     <div className="discover-feed">
-      {wishes.map(wish => (
+      {filteredWishes.map(wish => (
         <WishlistCard key={wish._id} wishlist={wish} />
       ))}
     </div>

@@ -89,58 +89,143 @@ button:hover {
 
 /* --- Home.jsx Styles (Tailwind Enhanced) --- */
 .landing-container {
-  @apply max-w-2xl mx-auto py-10 px-4 text-center;
+  @apply max-w-7xl mx-auto py-10 px-4;
 }
 .landing-headline {
-  @apply text-4xl md:text-5xl font-extrabold text-indigo-700 mb-6 leading-tight;
+  @apply text-4xl md:text-5xl font-extrabold text-indigo-700 mb-6 leading-tight text-center;
 }
 .landing-cta {
   @apply flex flex-col md:flex-row justify-center gap-4 mb-8;
 }
 .landing-btn-primary {
-  @apply bg-gradient-to-r from-blue-400 to-indigo-400 text-white rounded-lg px-8 py-3 text-lg font-bold shadow hover:from-indigo-500 hover:to-blue-400 transition;
+  @apply bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl;
 }
 .landing-btn-secondary {
-  @apply bg-white text-indigo-700 border-2 border-indigo-500 rounded-lg px-8 py-3 text-lg font-bold shadow hover:bg-indigo-50 transition;
+  @apply bg-white text-blue-600 border-2 border-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-all duration-200;
 }
+
+/* Main Grid Layout */
+.landing-main-grid {
+  @apply grid grid-cols-1 lg:grid-cols-3 gap-8 mt-12;
+}
+.landing-main-content {
+  @apply lg:col-span-2;
+}
+.landing-sidebar {
+  @apply lg:col-span-1;
+}
+
 .landing-illustration {
-  @apply my-8 flex flex-col items-center;
+  @apply mb-12 text-center;
 }
 .landing-illustration img {
-  @apply w-56 mb-4;
+  @apply max-w-md mx-auto mb-4;
 }
 .landing-illustration-desc {
-  @apply text-gray-500 text-base;
+  @apply text-sm text-gray-500 italic;
 }
 .landing-how {
-  @apply my-10;
+  @apply mb-12;
 }
 .landing-how-title {
-  @apply text-2xl font-bold mb-6 text-indigo-700;
+  @apply text-2xl font-bold text-gray-800 mb-6 text-center;
 }
 .landing-how-steps {
-  @apply flex flex-col md:flex-row justify-between gap-6;
+  @apply grid grid-cols-1 md:grid-cols-3 gap-6;
 }
 .landing-how-step {
-  @apply flex-1 min-w-[120px] flex flex-col items-center bg-white rounded-xl shadow p-4 transition hover:scale-105;
+  @apply text-center p-6 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow;
 }
 .landing-how-step h3 {
-  @apply mt-3 mb-1 text-lg font-semibold text-indigo-600;
+  @apply text-lg font-semibold text-gray-800 mt-4 mb-2;
 }
 .landing-how-step-desc {
-  @apply text-gray-500 text-sm;
+  @apply text-gray-600 text-sm;
 }
-.landing-preview {
-  @apply my-8;
+
+/* Recent Wishes Section */
+.recent-wishes-section {
+  @apply bg-white rounded-lg shadow-md p-6;
 }
-.landing-preview-box {
-  @apply bg-indigo-50 rounded-2xl shadow p-6 inline-block;
+.recent-wishes-header {
+  @apply flex justify-between items-center mb-6;
 }
-.landing-preview-label {
-  @apply text-gray-400 mb-2;
+.recent-wishes-title {
+  @apply text-xl font-bold text-gray-800;
 }
-.landing-preview-img {
-  @apply w-80 h-44 bg-indigo-100 rounded-lg flex items-center justify-center text-gray-400 text-lg;
+.recent-wishes-more-btn {
+  @apply flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm font-medium;
+}
+.recent-wishes-loading {
+  @apply text-center text-gray-500 py-8;
+}
+.recent-wishes-empty {
+  @apply text-center text-gray-500 py-8;
+}
+.recent-wishes-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-4;
+}
+.recent-wish-card {
+  @apply bg-gray-50 rounded-lg p-4 hover:bg-gray-100 transition-colors cursor-pointer border border-gray-200;
+}
+.recent-wish-header {
+  @apply flex justify-between items-start mb-3;
+}
+.recent-wish-user {
+  @apply flex items-center gap-2;
+}
+.recent-wish-avatar {
+  @apply w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-bold;
+}
+.recent-wish-username {
+  @apply text-sm font-medium text-gray-700;
+}
+.recent-wish-date {
+  @apply text-xs text-gray-500;
+}
+.recent-wish-title {
+  @apply text-sm font-semibold text-gray-800 mb-2 line-clamp-2;
+}
+.recent-wish-description {
+  @apply text-xs text-gray-600 mb-3 line-clamp-2 italic;
+}
+.recent-wish-tags {
+  @apply flex gap-2 flex-wrap;
+}
+.recent-wish-tag {
+  @apply px-2 py-1 rounded-full text-xs font-medium;
+}
+.recent-wish-tag-gaming { @apply bg-purple-100 text-purple-800; }
+.recent-wish-tag-fashion { @apply bg-pink-100 text-pink-800; }
+.recent-wish-tag-books { @apply bg-yellow-100 text-yellow-800; }
+.recent-wish-tag-travel { @apply bg-green-100 text-green-800; }
+.recent-wish-tag-tech { @apply bg-blue-100 text-blue-800; }
+.recent-wish-tag-home { @apply bg-orange-100 text-orange-800; }
+.recent-wish-tag-sports { @apply bg-red-100 text-red-800; }
+.recent-wish-tag-beauty { @apply bg-pink-100 text-pink-800; }
+.recent-wish-tag-food { @apply bg-amber-100 text-amber-800; }
+.recent-wish-tag-other { @apply bg-gray-100 text-gray-800; }
+.recent-wish-tag-low { @apply bg-green-100 text-green-800; }
+.recent-wish-tag-medium { @apply bg-yellow-100 text-yellow-800; }
+.recent-wish-tag-high { @apply bg-red-100 text-red-800; }
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .landing-main-grid {
+    @apply grid-cols-1;
+  }
+  .landing-sidebar {
+    @apply order-first;
+  }
+}
+
+@media (max-width: 768px) {
+  .recent-wishes-grid {
+    @apply grid-cols-1;
+  }
+  .landing-how-steps {
+    @apply grid-cols-1;
+  }
 }
 
 /* --- Login & Signup Shared Styles (Tailwind Enhanced) --- */
@@ -1084,4 +1169,140 @@ button:hover {
 
 .wishlist-card-action {
   @apply flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors text-sm;
+}
+
+/* Category Filter Button Styles */
+.category-filter-section {
+  @apply bg-white rounded-lg shadow-md p-6 mt-6;
+}
+.category-filter-header {
+  @apply flex items-center gap-2 mb-4;
+}
+.category-filter-title {
+  @apply text-lg font-semibold text-gray-800;
+}
+.category-filter-arrow {
+  @apply text-gray-500 text-sm;
+}
+.category-filter-buttons {
+  @apply grid grid-cols-2 gap-3;
+}
+.category-filter-btn {
+  @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.category-filter-btn-active {
+  @apply shadow-lg scale-105;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+.category-filter-btn-blue {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+.category-filter-btn-yellow {
+  background: linear-gradient(135deg, #fbbf24, #d97706);
+}
+.category-filter-btn-pink {
+  background: linear-gradient(135deg, #ec4899, #be185d);
+}
+.category-filter-btn-purple {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+.category-filter-btn-green {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+.category-filter-btn-orange {
+  background: linear-gradient(135deg, #f97316, #ea580c);
+}
+.category-filter-btn-red {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+.category-filter-btn-amber {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+.category-filter-btn-gray {
+  background: linear-gradient(135deg, #6b7280, #4b5563);
+}
+
+/* Discover Sidebar Styles */
+.discover-sidebar {
+  @apply w-full lg:w-80;
+}
+
+/* Search Bar Styles */
+.discover-search-section {
+  @apply mb-6;
+}
+.discover-search-input {
+  @apply w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all bg-white placeholder-gray-500;
+}
+
+/* Trending Header */
+.discover-trending-header {
+  @apply flex items-center gap-2 mb-4;
+}
+.discover-trending-title {
+  @apply text-lg font-semibold text-gray-800;
+}
+.discover-trending-arrow {
+  @apply text-gray-500 text-sm;
+}
+
+/* Category Buttons */
+.discover-categories {
+  @apply flex flex-wrap gap-3;
+}
+.discover-category-btn {
+  @apply px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+.discover-category-btn:hover {
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+  transform: translateY(-1px);
+}
+.discover-category-btn-active {
+  @apply shadow-lg scale-105;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+}
+
+/* Category Filter Dropdown Styles */
+.category-filter-section {
+  @apply bg-white rounded-lg shadow-md p-4;
+  position: relative;
+}
+.category-filter-header {
+  @apply flex items-center justify-between cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors;
+}
+.category-filter-title {
+  @apply text-lg font-semibold text-gray-800;
+}
+.category-filter-arrow {
+  @apply text-gray-500 text-sm transition-transform duration-200;
+}
+.category-filter-arrow-open {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.category-dropdown {
+  @apply absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto;
+}
+.category-dropdown-item {
+  @apply flex items-center justify-between px-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors border-b border-gray-100 last:border-b-0;
+}
+.category-dropdown-item-active {
+  @apply bg-blue-50 text-blue-700;
+}
+.category-dropdown-label {
+  @apply text-sm font-medium;
+}
+.category-dropdown-check {
+  @apply text-blue-600 font-bold;
 }
