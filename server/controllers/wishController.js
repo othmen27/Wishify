@@ -92,6 +92,16 @@ exports.getWish = async (req, res) => {
       return res.status(404).json({ message: 'Wish not found' });
     }
     
+    // Track view for all users (increment view count)
+    wish.views += 1;
+    
+    // If user is authenticated, also track in viewedBy array
+    if (req.user && !wish.viewedBy.includes(req.user._id)) {
+      wish.viewedBy.push(req.user._id);
+    }
+    
+    await wish.save();
+    
     // If wish is public, allow access without authentication
     if (wish.visibility === 'public') {
       return res.json(wish);
@@ -110,6 +120,88 @@ exports.getWish = async (req, res) => {
     res.json(wish);
   } catch (error) {
     console.error('Error fetching wish:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+// Like/Unlike a wish
+exports.toggleLike = async (req, res) => {
+  try {
+    const wish = await Wish.findById(req.params.id);
+    if (!wish) {
+      return res.status(404).json({ message: 'Wish not found' });
+    }
+
+    const userId = req.user._id;
+    const isLiked = wish.likedBy.includes(userId);
+
+    if (isLiked) {
+      // Unlike
+      wish.likedBy = wish.likedBy.filter(id => id.toString() !== userId.toString());
+      wish.likes = Math.max(0, wish.likes - 1);
+    } else {
+      // Like
+      wish.likedBy.push(userId);
+      wish.likes += 1;
+    }
+
+    await wish.save();
+    res.json({ 
+      message: isLiked ? 'Wish unliked' : 'Wish liked',
+      likes: wish.likes,
+      isLiked: !isLiked
+    });
+  } catch (error) {
+    console.error('Error toggling like:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+// Share a wish
+exports.shareWish = async (req, res) => {
+  try {
+    const wish = await Wish.findById(req.params.id);
+    if (!wish) {
+      return res.status(404).json({ message: 'Wish not found' });
+    }
+
+    wish.shares += 1;
+    await wish.save();
+
+    res.json({ 
+      message: 'Wish shared',
+      shares: wish.shares
+    });
+  } catch (error) {
+    console.error('Error sharing wish:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+// Track a view (for card clicks)
+exports.trackView = async (req, res) => {
+  try {
+    const wish = await Wish.findById(req.params.id);
+    if (!wish) {
+      return res.status(404).json({ message: 'Wish not found' });
+    }
+
+    // Increment view count
+    wish.views += 1;
+    
+    // If user is authenticated, also track in viewedBy array
+    if (req.user && !wish.viewedBy.includes(req.user._id)) {
+      wish.viewedBy.push(req.user._id);
+    }
+    
+    await wish.save();
+
+    res.json({ 
+      message: 'View tracked',
+      views: wish.views
+    });
+  } catch (error) {
+    console.error('Error tracking view:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 }; 

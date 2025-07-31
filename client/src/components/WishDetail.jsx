@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaHeart, FaShareAlt, FaEye, FaGift, FaArrowLeft, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaHeart, FaShareAlt, FaEye, FaGift, FaArrowLeft, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { isLoggedIn } from '../utils/auth';
 import '../App.css';
 
 const WishDetail = () => {
@@ -9,6 +10,11 @@ const WishDetail = () => {
   const [wish, setWish] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState(0);
+  const [sharesCount, setSharesCount] = useState(0);
+  const [viewsCount, setViewsCount] = useState(0);
 
   // Set page title based on wish data
   useEffect(() => {
@@ -31,6 +37,15 @@ const WishDetail = () => {
         }
         const data = await response.json();
         setWish(data);
+        setLikesCount(data.likes || 0);
+        setSharesCount(data.shares || 0);
+        setViewsCount(data.views || 0);
+        
+        // Check if current user has liked this wish
+        if (isLoggedIn() && data.likedBy) {
+          const currentUser = JSON.parse(localStorage.getItem('user'));
+          setIsLiked(data.likedBy.includes(currentUser._id));
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -49,6 +64,84 @@ const WishDetail = () => {
       hour: '2-digit',
       minute: '2-digit'
     });
+  };
+
+  const handleLike = async () => {
+    if (!isLoggedIn()) {
+      alert('Please log in to like wishes');
+      return;
+    }
+
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`/api/wishes/${id}/like`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setIsLiked(data.isLiked);
+        setLikesCount(data.likes);
+      }
+    } catch (error) {
+      console.error('Error liking wish:', error);
+    }
+  };
+
+  const handleShare = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`/api/wishes/${id}/share`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSharesCount(data.shares);
+        
+        // Also try to use native share API if available
+        if (navigator.share) {
+          navigator.share({
+            title: wish.title,
+            text: wish.description,
+            url: window.location.href
+          });
+        } else {
+          // Fallback: copy to clipboard
+          navigator.clipboard.writeText(window.location.href);
+          alert('Link copied to clipboard!');
+        }
+      }
+    } catch (error) {
+      console.error('Error sharing wish:', error);
+    }
+  };
+
+  const nextImage = () => {
+    const images = getImages();
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    const images = getImages();
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const getImages = () => {
+    const images = [];
+    if (wish.imageUrl) images.push(wish.imageUrl);
+    if (wish.imageUrls && wish.imageUrls.length > 0) {
+      images.push(...wish.imageUrls);
+    }
+    return images;
   };
 
   if (loading) {
@@ -75,6 +168,8 @@ const WishDetail = () => {
       </div>
     );
   }
+
+  const images = getImages();
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -136,14 +231,62 @@ const WishDetail = () => {
             </div>
           )}
 
-          {/* Image */}
-          {wish.imageUrl && (
-            <div className="mb-6">
-              <img
-                src={wish.imageUrl}
-                alt={wish.title}
-                className="w-full h-64 object-cover rounded-lg"
-              />
+          {/* Image Slideshow */}
+          {images.length > 0 && (
+            <div className="mb-6 relative">
+              <div className="relative h-96 bg-gray-100 rounded-lg overflow-hidden">
+                <img
+                  src={images[currentImageIndex]}
+                  alt={`${wish.title} - Image ${currentImageIndex + 1}`}
+                  className="w-full h-full object-cover"
+                />
+                
+                {/* Navigation arrows */}
+                {images.length > 1 && (
+                  <>
+                    <button
+                      onClick={prevImage}
+                      className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all"
+                    >
+                      <FaChevronLeft />
+                    </button>
+                    <button
+                      onClick={nextImage}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all"
+                    >
+                      <FaChevronRight />
+                    </button>
+                  </>
+                )}
+                
+                {/* Image counter */}
+                {images.length > 1 && (
+                  <div className="absolute bottom-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
+                    {currentImageIndex + 1} / {images.length}
+                  </div>
+                )}
+              </div>
+              
+              {/* Image thumbnails */}
+              {images.length > 1 && (
+                <div className="flex gap-2 mt-4 overflow-x-auto">
+                  {images.map((image, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
+                        index === currentImageIndex ? 'border-blue-500' : 'border-gray-200'
+                      }`}
+                    >
+                      <img
+                        src={image}
+                        alt={`Thumbnail ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
@@ -176,19 +319,27 @@ const WishDetail = () => {
           )}
 
           {/* Actions */}
-          <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
-            <button className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors">
-              <FaHeart />
-              <span>0</span>
+          <div className="flex items-center gap-6 pt-4 border-t border-gray-100">
+            <button 
+              onClick={handleLike}
+              className={`flex items-center gap-2 transition-colors ${
+                isLiked ? 'text-red-500' : 'text-gray-600 hover:text-red-500'
+              }`}
+            >
+              <FaHeart className={isLiked ? 'fill-current' : ''} />
+              <span>{likesCount}</span>
             </button>
-            <button className="flex items-center gap-2 text-gray-600 hover:text-blue-500 transition-colors">
+            <button 
+              onClick={handleShare}
+              className="flex items-center gap-2 text-gray-600 hover:text-blue-500 transition-colors"
+            >
               <FaShareAlt />
-              <span>0</span>
+              <span>{sharesCount}</span>
             </button>
-            <button className="flex items-center gap-2 text-gray-600 hover:text-green-500 transition-colors">
+            <div className="flex items-center gap-2 text-gray-600">
               <FaEye />
-              <span>0</span>
-            </button>
+              <span>{viewsCount}</span>
+            </div>
           </div>
         </div>
       </div>

@@ -1090,7 +1090,7 @@ button:hover {
 
 /* Wishlist Card Styles */
 .wishlist-card {
-  @apply bg-white rounded-xl shadow-md p-6 mb-4 transition-all duration-200;
+  @apply bg-white rounded-xl shadow-md p-6 mb-4 transition-all duration-200 max-w-2xl mx-auto;
   border: 1px solid #e5e7eb;
 }
 
@@ -1133,11 +1133,11 @@ button:hover {
 }
 
 .wishlist-card-image {
-  @apply mb-4;
+  @apply mb-4 relative;
 }
 
 .wishlist-card-image img {
-  @apply w-full h-48 object-cover rounded-lg;
+  @apply w-full max-h-96 object-contain rounded-lg;
 }
 
 .wishlist-card-tags {
@@ -1227,6 +1227,19 @@ button:hover {
 }
 .category-filter-btn-gray {
   background: linear-gradient(135deg, #6b7280, #4b5563);
+}
+
+/* Discover Feed Styles */
+.discover-feed {
+  @apply flex flex-col items-center w-full max-w-4xl mx-auto px-4;
+}
+
+.discover-main-layout {
+  @apply w-full flex justify-center;
+}
+
+.discover-feed-area {
+  @apply w-full max-w-4xl;
 }
 
 /* Discover Sidebar Styles */
