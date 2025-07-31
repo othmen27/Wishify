@@ -76,7 +76,7 @@ const Navbar = () => {
                 ✨ Create Wish
               </Link>
               <Link 
-                to="/profile" 
+                to={`/user/${currentUser?.username}`}
                 style={{ 
                   color: '#2563eb', 
                   fontWeight: 500,
@@ -187,7 +187,7 @@ const Navbar = () => {
                   ✨ Create Wish
                 </Link>
                 <Link 
-                  to="/profile"
+                  to={`/user/${currentUser?.username}`}
                   style={{ 
                     color: '#2563eb', 
                     fontWeight: 500,

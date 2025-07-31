@@ -63,7 +63,15 @@ const wishSchema = new mongoose.Schema({
   viewedBy: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  }]
+  }],
+  granted: {
+    type: Boolean,
+    default: false
+  },
+  favorited: {
+    type: Boolean,
+    default: false
+  }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Wish', wishSchema); 

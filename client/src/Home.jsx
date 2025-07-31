@@ -95,10 +95,14 @@ const Home = () => {
       <div className="landing-main-grid">
         {/* Left Column - Main Content */}
         <div className="landing-main-content">
-          {/* Illustrations Placeholder */}
+          {/* Work in Progress Section */}
           <div className="landing-illustration">
-            <img src="https://undraw.co/api/illustrations/undraw_gift_re_qr17.svg" alt="People unboxing gifts" />
-            <div className="landing-illustration-desc">Illustration: Unboxing gifts & writing wishlists</div>
+            <div className="wip-container">
+              <div className="wip-icon">🚧</div>
+              <h3 className="wip-title">Work in Progress</h3>
+              <p className="wip-description">We're working on adding amazing content here!</p>
+              <p className="wip-subtitle">Share your wishes and help us build something special</p>
+            </div>
           </div>
 
           {/* How it works */}

@@ -177,7 +177,15 @@ const WishlistCard = ({ wishlist }) => {
           </div>
         </div>
         <div className="wishlist-card-userinfo">
-          <div className="wishlist-card-username">
+          <div 
+            className="wishlist-card-username cursor-pointer hover:text-blue-600 transition-colors"
+            onClick={(e) => {
+              e.stopPropagation();
+              if (wish.user?.username) {
+                navigate(`/user/${wish.user.username}`);
+              }
+            }}
+          >
             {wish.user?.username || 'Anonymous'}
           </div>
           <div className="wishlist-card-date">

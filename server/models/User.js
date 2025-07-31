@@ -36,6 +36,16 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: false
   },
+  bio: {
+    type: String,
+    trim: true,
+    maxlength: 200
+  },
+  location: {
+    type: String,
+    trim: true,
+    maxlength: 100
+  },
   points: {
     type: Number,
     default: 0,

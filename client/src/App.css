@@ -124,6 +124,60 @@ button:hover {
 .landing-illustration-desc {
   @apply text-sm text-gray-500 italic;
 }
+
+.wip-container {
+  @apply flex flex-col items-center justify-center p-8 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl border-2 border-dashed border-blue-200;
+  min-height: 200px;
+}
+
+.wip-icon {
+  @apply text-6xl mb-4;
+}
+
+.wip-title {
+  @apply text-2xl font-bold text-gray-800 mb-2;
+}
+
+.wip-description {
+  @apply text-lg text-gray-600 mb-2 text-center;
+}
+
+.wip-subtitle {
+  @apply text-sm text-gray-500 text-center italic;
+}
+
+/* User Profile Styles */
+.user-profile-container {
+  @apply max-w-6xl mx-auto p-6;
+}
+
+.user-profile-header {
+  @apply bg-white rounded-xl shadow-lg overflow-hidden mb-6;
+}
+
+.user-profile-stats {
+  @apply bg-white rounded-xl shadow-lg p-6 mb-6;
+}
+
+.user-profile-tabs {
+  @apply border-b border-gray-200;
+}
+
+.user-profile-tab {
+  @apply flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap;
+}
+
+.user-profile-tab.active {
+  @apply border-blue-500 text-blue-600;
+}
+
+.user-profile-tab:not(.active) {
+  @apply border-transparent text-gray-500 hover:text-gray-700;
+}
+
+.user-profile-empty {
+  @apply text-center py-12;
+}
 .landing-how {
   @apply mb-12;
 }
