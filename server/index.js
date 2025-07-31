@@ -19,6 +19,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/wishes', require('./routes/wishes'));
+app.use('/api/upload', require('./routes/upload'));
 
 console.log('Connecting to MongoDB...');
 console.log('MONGO_URI:', process.env.MONGO_URI);

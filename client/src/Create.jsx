@@ -3,6 +3,7 @@ import { FaGift, FaLink, FaImage, FaEye, FaEyeSlash, FaPlus, FaSpinner } from 'r
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { getAuthHeader } from './utils/auth';
+import ImageDropZone from './components/ImageDropZone';
 import './App.css';
 
 const Create = () => {
@@ -11,14 +12,13 @@ const Create = () => {
     title: '',
     description: '',
     link: '',
-    imageUrl: '',
     category: '',
     priority: 'medium',
     visibility: 'private'
   });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-  const [imagePreview, setImagePreview] = useState('');
+  const [uploadedImages, setUploadedImages] = useState([]);
 
   const categories = [
     { value: 'gaming', label: '🎮 Gaming', color: '#8b5cf6' },
@@ -47,13 +47,8 @@ const Create = () => {
     }
   };
 
-  const handleImageUrlChange = (url) => {
-    setFormData(prev => ({ ...prev, imageUrl: url }));
-    if (url && isValidUrl(url)) {
-      setImagePreview(url);
-    } else {
-      setImagePreview('');
-    }
+  const handleImagesChange = (images) => {
+    setUploadedImages(images);
   };
 
   const isValidUrl = (string) => {
@@ -73,11 +68,34 @@ const Create = () => {
     if (formData.link && !isValidUrl(formData.link)) {
       newErrors.link = 'Please enter a valid URL';
     }
-    if (formData.imageUrl && !isValidUrl(formData.imageUrl)) {
-      newErrors.imageUrl = 'Please enter a valid image URL';
-    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
+  };
+
+  const uploadImages = async () => {
+    if (uploadedImages.length === 0) return [];
+
+    const formData = new FormData();
+    uploadedImages.forEach((image, index) => {
+      formData.append('images', image.file);
+    });
+
+    try {
+      const response = await axios.post(
+        'http://localhost:5000/api/upload/images',
+        formData,
+        { 
+          headers: { 
+            ...getAuthHeader(),
+            'Content-Type': 'multipart/form-data'
+          } 
+        }
+      );
+      return response.data.imageUrls || [];
+    } catch (error) {
+      console.error('Error uploading images:', error);
+      throw new Error('Failed to upload images');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -86,14 +104,24 @@ const Create = () => {
 
     setLoading(true);
     
-    // Debug: Log the data being sent
-    console.log('Sending wish data:', formData);
-    console.log('Auth headers:', getAuthHeader());
-    
     try {
+      // Upload images first if any
+      let imageUrls = [];
+      if (uploadedImages.length > 0) {
+        imageUrls = await uploadImages();
+      }
+
+      // Create wish with uploaded image URLs
+      const wishData = {
+        ...formData,
+        imageUrls: imageUrls
+      };
+      
+      console.log('Sending wish data:', wishData);
+      
       const response = await axios.post(
         'http://localhost:5000/api/wishes',
-        formData,
+        wishData,
         { headers: getAuthHeader() }
       );
       
@@ -172,25 +200,17 @@ const Create = () => {
             <div className="form-help">Optional, but helps others find exactly what you want</div>
           </div>
 
-          {/* Image */}
+          {/* Images */}
           <div className="form-group">
             <label className="form-label">
               <FaImage className="form-label-icon" />
-              Image URL
+              Images
             </label>
-            <input
-              type="url"
-              value={formData.imageUrl}
-              onChange={(e) => handleImageUrlChange(e.target.value)}
-              placeholder="https://example.com/image.jpg"
-              className={`form-input ${errors.imageUrl ? 'error' : ''}`}
+            <ImageDropZone 
+              onImagesChange={handleImagesChange}
+              maxImages={4}
             />
-            {errors.imageUrl && <div className="form-error">{errors.imageUrl}</div>}
-            {imagePreview && (
-              <div className="image-preview">
-                <img src={imagePreview} alt="Preview" onError={() => setImagePreview('')} />
-              </div>
-            )}
+            <div className="form-help">Upload up to 4 images to showcase your wish</div>
           </div>
 
           {/* Category */}

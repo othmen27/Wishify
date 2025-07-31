@@ -25,6 +25,10 @@ const wishSchema = new mongoose.Schema({
     type: String,
     trim: true
   },
+  imageUrls: [{
+    type: String,
+    trim: true
+  }],
   category: {
     type: String,
     enum: ['gaming', 'fashion', 'books', 'travel', 'tech', 'home', 'sports', 'beauty', 'food', 'other'],

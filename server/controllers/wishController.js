@@ -9,9 +9,9 @@ exports.createWish = async (req, res) => {
     console.log('Request body:', req.body);
     console.log('Headers:', req.headers);
     
-    const { title, description, link, imageUrl, category, priority, visibility } = req.body;
+    const { title, description, link, imageUrl, imageUrls, category, priority, visibility } = req.body;
     
-    console.log('Extracted data:', { title, description, link, imageUrl, category, priority, visibility });
+    console.log('Extracted data:', { title, description, link, imageUrl, imageUrls, category, priority, visibility });
     
     const wish = new Wish({
       user: req.user._id,
@@ -19,6 +19,7 @@ exports.createWish = async (req, res) => {
       description,
       link,
       imageUrl,
+      imageUrls: imageUrls || [],
       category,
       priority,
       visibility
