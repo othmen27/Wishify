@@ -169,6 +169,24 @@ const Home = () => {
                     {wish.description && (
                       <p className="recent-wish-description">"{wish.description}"</p>
                     )}
+                    
+                    {/* Show first image if available */}
+                    {(wish.imageUrl || (wish.imageUrls && wish.imageUrls.length > 0)) && (
+                      <div className="recent-wish-image">
+                        <img 
+                          src={wish.imageUrl || wish.imageUrls[0]} 
+                          alt={wish.title}
+                          className="recent-wish-image-content"
+                        />
+                        {/* Show image count if there are multiple images */}
+                        {wish.imageUrls && wish.imageUrls.length > 0 && (
+                          <div className="recent-wish-image-count">
+                            +{wish.imageUrls.length} more
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    
                     <div className="recent-wish-tags">
                       <span className={`recent-wish-tag recent-wish-tag-${wish.category}`}>
                         {wish.category}
