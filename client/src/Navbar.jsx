@@ -90,7 +90,7 @@ const Navbar = () => {
                 Hi, {currentUser?.username || 'User'}!
               </Link>
               {/* Profile Picture */}
-              <Link to="/profile" className="navbar-profile-pic" style={{ cursor: 'pointer' }}>
+              <Link to={`/user/${currentUser?.username}`} className="navbar-profile-pic" style={{ cursor: 'pointer' }}>
                 {currentUser?.profileImage ? (
                   <img 
                     src={`http://localhost:5000${currentUser.profileImage}`}
@@ -201,7 +201,7 @@ const Navbar = () => {
                   Hi, {currentUser?.username || 'User'}!
                 </Link>
                 {/* Mobile Profile Picture */}
-                <Link to="/profile" className="navbar-mobile-profile-pic" style={{ cursor: 'pointer' }}>
+                <Link to={`/user/${currentUser?.username}`} className="navbar-mobile-profile-pic" style={{ cursor: 'pointer' }}>
                   {currentUser?.profileImage ? (
                     <img 
                       src={`http://localhost:5000${currentUser.profileImage}`}

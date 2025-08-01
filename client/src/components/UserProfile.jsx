@@ -155,13 +155,15 @@ const UserProfile = () => {
                 <div className="flex items-center gap-3 mb-2">
                   <h1 className="text-3xl font-bold text-gray-900">{user?.username}</h1>
                   {isOwnProfile && (
-                    <button
-                      onClick={() => navigate('/profile/edit')}
-                      className="flex items-center gap-2 bg-blue-600 text-white px-3 py-1 rounded-lg hover:bg-blue-700 transition-colors text-sm"
-                    >
-                      <FaEdit size={12} />
-                      Edit
-                    </button>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => navigate('/profile')}
+                        className="flex items-center gap-2 bg-gray-600 text-white px-3 py-1 rounded-lg hover:bg-gray-700 transition-colors text-sm"
+                      >
+                        <FaEdit size={12} />
+                        Settings
+                      </button>
+                    </div>
                   )}
                 </div>
                 <p className="text-gray-600 mb-1">@{user?.username}</p>

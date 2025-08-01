@@ -6,6 +6,7 @@ import Signup from './Signup';
 import Create from './Create';
 import Discover from './Discover';
 import Profile from './Profile';
+import UserProfile from './components/UserProfile';
 import ProfileEdit from './components/ProfileEdit';
 import WishDetail from './components/WishDetail';
 import Wishlist from './Wishlist';
@@ -28,7 +29,7 @@ function App() {
             <Route path="/profile/edit" element={<ProfileEdit />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/wish/:id" element={<WishDetail />} />
-            <Route path="/user/:username" element={<Profile />} />
+            <Route path="/user/:username" element={<UserProfile />} />
           </Routes>
         </div>
       </div>

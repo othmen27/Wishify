@@ -157,13 +157,21 @@ const Profile = () => {
       <div className="max-w-2xl mx-auto px-4">
         {/* Header */}
         <div className="mb-8">
-          <button
-            onClick={() => navigate(-1)}
-            className="flex items-center text-blue-600 hover:text-blue-800 mb-4 transition-colors"
-          >
-            <FaArrowLeft className="mr-2" />
-            Back
-          </button>
+          <div className="flex items-center justify-between mb-4">
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+            >
+              <FaArrowLeft className="mr-2" />
+              Back
+            </button>
+            <button
+              onClick={() => navigate(`/user/${currentUser.username}`)}
+              className="flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+            >
+              View My Profile
+            </button>
+          </div>
           <h1 className="text-3xl font-bold text-gray-800 mb-2">Profile Settings</h1>
           <p className="text-gray-600">Manage your account and payment information</p>
         </div>
