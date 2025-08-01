@@ -1799,3 +1799,302 @@ button:hover {
 .profile-loading {
   @apply text-center text-gray-500 py-8;
 }
+
+/* --- About Page Styles --- */
+.about-container {
+  @apply max-w-6xl mx-auto py-8 px-4;
+}
+
+.about-hero {
+  @apply text-center py-16 mb-16;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+  color: white;
+  margin-bottom: 4rem;
+}
+
+.about-hero-content {
+  @apply max-w-4xl mx-auto px-6;
+}
+
+.about-hero-title {
+  @apply text-4xl md:text-6xl font-bold mb-6 leading-tight;
+  color: white;
+}
+
+.about-hero-subtitle {
+  @apply text-xl md:text-2xl mb-8 opacity-90;
+  color: white;
+}
+
+.about-hero-illustration {
+  @apply mb-8;
+}
+
+.gift-illustration {
+  @apply relative inline-block;
+}
+
+.gift-icon {
+  @apply text-6xl md:text-8xl;
+  color: #fbbf24;
+  animation: float 3s ease-in-out infinite;
+}
+
+.sparkles {
+  @apply absolute inset-0;
+}
+
+.sparkle {
+  @apply absolute text-2xl;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.sparkle:nth-child(1) {
+  top: -20px;
+  left: -30px;
+  animation-delay: 0s;
+}
+
+.sparkle:nth-child(2) {
+  top: 10px;
+  right: -20px;
+  animation-delay: 0.5s;
+}
+
+.sparkle:nth-child(3) {
+  bottom: -10px;
+  left: 50%;
+  animation-delay: 1s;
+}
+
+.about-cta-button {
+  @apply bg-white text-indigo-600 px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300;
+}
+
+.about-cta-button:hover {
+  @apply transform scale-105;
+}
+
+.about-section-content {
+  @apply max-w-4xl mx-auto mb-16;
+}
+
+.about-section-title {
+  @apply text-3xl md:text-4xl font-bold text-center mb-8;
+  color: #2563eb;
+}
+
+.about-mission-text {
+  @apply text-lg text-gray-700 text-center mb-8 leading-relaxed;
+}
+
+.mission-features {
+  @apply grid md:grid-cols-3 gap-6 mt-12;
+}
+
+.mission-feature {
+  @apply flex items-center gap-3 p-4 bg-white rounded-lg shadow-sm;
+}
+
+.mission-icon {
+  @apply text-2xl text-indigo-500;
+}
+
+.steps-container {
+  @apply grid md:grid-cols-3 gap-8 mt-12;
+}
+
+.step {
+  @apply text-center p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow;
+}
+
+.step-icon {
+  @apply w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl;
+}
+
+.step h3 {
+  @apply text-xl font-semibold mb-2;
+  color: #2563eb;
+}
+
+.step p {
+  @apply text-gray-600;
+}
+
+.features-grid {
+  @apply grid md:grid-cols-3 gap-6 mt-12;
+}
+
+.feature-card {
+  @apply p-6 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow text-center;
+}
+
+.feature-icon {
+  @apply text-3xl text-indigo-500 mb-4;
+}
+
+.feature-card h3 {
+  @apply text-lg font-semibold mb-2;
+  color: #2563eb;
+}
+
+.feature-card p {
+  @apply text-gray-600;
+}
+
+.story-content {
+  @apply grid md:grid-cols-2 gap-8 items-center;
+}
+
+.story-text p {
+  @apply text-lg text-gray-700 mb-4 leading-relaxed;
+}
+
+.story-illustration {
+  @apply text-center;
+}
+
+.story-icon {
+  @apply text-8xl text-indigo-500 opacity-20;
+}
+
+.join-buttons {
+  @apply flex flex-col md:flex-row gap-4 justify-center mt-8;
+}
+
+.join-primary-btn {
+  @apply bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300;
+}
+
+.join-primary-btn:hover {
+  @apply transform scale-105;
+}
+
+.join-secondary-btn {
+  @apply bg-white text-indigo-600 border-2 border-indigo-500 px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300;
+}
+
+.join-secondary-btn:hover {
+  @apply bg-indigo-50 transform scale-105;
+}
+
+/* --- Footer Styles --- */
+.footer {
+  @apply bg-gray-900 text-white mt-16;
+}
+
+.footer-content {
+  @apply max-w-6xl mx-auto py-12 px-4 grid md:grid-cols-5 gap-8;
+}
+
+.footer-section {
+  @apply space-y-4;
+}
+
+.footer-logo-text {
+  @apply text-2xl font-bold flex items-center gap-2;
+  color: white;
+}
+
+.footer-logo-sparkle {
+  @apply text-yellow-400;
+  animation: sparkle 2s ease-in-out infinite;
+}
+
+.footer-tagline {
+  @apply text-gray-400 text-sm mt-2;
+}
+
+.footer-heading {
+  @apply text-lg font-semibold mb-4;
+  color: white;
+}
+
+.footer-links {
+  @apply space-y-2;
+}
+
+.footer-links li {
+  @apply list-none;
+}
+
+.footer-links a {
+  @apply text-gray-400 hover:text-white transition-colors duration-200;
+  text-decoration: none;
+}
+
+.footer-social {
+  @apply flex gap-4;
+}
+
+.footer-social-link {
+  @apply w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 transition-all duration-200;
+}
+
+.footer-bottom {
+  @apply border-t border-gray-800;
+}
+
+.footer-bottom-content {
+  @apply max-w-6xl mx-auto py-6 px-4 text-center;
+}
+
+.footer-copyright {
+  @apply text-gray-400 text-sm;
+}
+
+.footer-heart {
+  @apply text-red-500 inline-block;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .about-hero-title {
+    @apply text-3xl;
+  }
+
+  .about-hero-subtitle {
+    @apply text-lg;
+  }
+
+  .mission-features {
+    @apply grid-cols-1;
+  }
+
+  .steps-container {
+    @apply grid-cols-1;
+  }
+
+  .features-grid {
+    @apply grid-cols-1;
+  }
+
+  .story-content {
+    @apply grid-cols-1;
+  }
+
+  .footer-content {
+    @apply grid-cols-2 gap-6;
+  }
+
+  .footer-section:first-child {
+    @apply col-span-2;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-content {
+    @apply grid-cols-1;
+  }
+
+  .footer-section:first-child {
+    @apply col-span-1;
+  }
+}

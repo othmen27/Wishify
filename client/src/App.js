@@ -10,7 +10,9 @@ import UserProfile from './components/UserProfile';
 import ProfileEdit from './components/ProfileEdit';
 import WishDetail from './components/WishDetail';
 import Wishlist from './Wishlist';
+import About from './About';
 import Navbar from './Navbar';
+import Footer from './components/Footer';
 import './App.css';
 
 function App() {
@@ -25,6 +27,7 @@ function App() {
             <Route path="/signup" element={<Signup />} />
             <Route path="/create" element={<Create />} />
             <Route path="/discover" element={<Discover />} />
+            <Route path="/about" element={<About />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/edit" element={<ProfileEdit />} />
             <Route path="/wishlist" element={<Wishlist />} />
@@ -32,6 +35,7 @@ function App() {
             <Route path="/user/:username" element={<UserProfile />} />
           </Routes>
         </div>
+        <Footer />
       </div>
     </Router>
   );
