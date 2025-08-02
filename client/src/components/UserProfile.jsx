@@ -126,8 +126,8 @@ const UserProfile = () => {
       return;
     }
     
-    // For now, we'll show a simple alert. In a real app, this would open a chat interface
-    alert(`Chat feature coming soon! You would be able to chat with ${user?.username} here.`);
+    // Navigate to chat page with the user
+    navigate(`/chat?user=${user?.username}`);
   };
 
   const formatDate = (dateString) => {
@@ -259,35 +259,7 @@ const UserProfile = () => {
                 </button>
               )}
               
-              {/* Debug: Always show buttons for testing */}
-              {isOwnProfile && (
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={handlePayPal}
-                    className="flex items-center gap-2 bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors text-sm"
-                    title="PayPal (Debug)"
-                  >
-                    <FaPaypal />
-                    PayPal
-                  </button>
-                  <button
-                    onClick={handleCashApp}
-                    className="flex items-center gap-2 bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600 transition-colors text-sm"
-                    title="Cash App (Debug)"
-                  >
-                    <FaDollarSign />
-                    Cash App
-                  </button>
-                  <button
-                    onClick={handleStartChat}
-                    className="flex items-center gap-2 bg-purple-500 text-white px-3 py-2 rounded-lg hover:bg-purple-600 transition-colors text-sm"
-                    title="Start Chat (Debug)"
-                  >
-                    <FaComments />
-                    Start Chat
-                  </button>
-                </div>
-              )}
+
               
               {/* Share Button */}
               <button

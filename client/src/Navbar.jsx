@@ -8,6 +8,7 @@ const navLinks = [
   { to: '/', label: 'Home', icon: <span role="img" aria-label="home">🏠</span> },
   { to: '/wishlist', label: 'My Wishlist', icon: <span role="img" aria-label="wishlist">🎁</span> },
   { to: '/discover', label: 'Discover', icon: <span role="img" aria-label="discover">🔍</span> },
+  { to: '/chat', label: 'Chat', icon: <span role="img" aria-label="chat">💬</span>, requireAuth: true },
   { to: '/about', label: 'About', icon: <span role="img" aria-label="about">📖</span> },
   // { to: '/blog', label: 'Blog', icon: <span role="img" aria-label="blog">💬</span> },
 ];
@@ -49,17 +50,22 @@ const Navbar = () => {
         </Link>
         {/* Desktop Nav */}
         <div className="nav-links" style={{ display: window.innerWidth < 900 ? 'none' : 'flex' }}>
-          {navLinks.map(link => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className={`nav-link${location.pathname === link.to ? ' active' : ''}`}
-            >
-              {link.icon} {link.label}
-              {location.pathname === link.to && <span className="nav-link-dot" />}
-              <span className="nav-underline" />
-            </Link>
-          ))}
+          {navLinks.map(link => {
+            // Skip chat link if user is not logged in and link requires auth
+            if (link.requireAuth && !loggedIn) return null;
+            
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`nav-link${location.pathname === link.to ? ' active' : ''}`}
+              >
+                {link.icon} {link.label}
+                {location.pathname === link.to && <span className="nav-link-dot" />}
+                <span className="nav-underline" />
+              </Link>
+            );
+          })}
           {/* Right side: user or login/signup */}
           {loggedIn ? (
             <div className="navbar-user" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -161,16 +167,21 @@ const Navbar = () => {
               <FaRegStar size={28} color="#2563eb" />
               <span style={{ fontWeight: 700, fontSize: '1.3rem', color: '#2563eb', letterSpacing: 1 }}>Wishify</span>
             </div>
-            {navLinks.map(link => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`navbar-mobile-link${location.pathname === link.to ? ' active' : ''}`}
-              >
-                {link.icon} {link.label}
-                {location.pathname === link.to && <span className="navbar-mobile-link-dot" />}
-              </Link>
-            ))}
+            {navLinks.map(link => {
+              // Skip chat link if user is not logged in and link requires auth
+              if (link.requireAuth && !loggedIn) return null;
+              
+              return (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={`navbar-mobile-link${location.pathname === link.to ? ' active' : ''}`}
+                >
+                  {link.icon} {link.label}
+                  {location.pathname === link.to && <span className="navbar-mobile-link-dot" />}
+                </Link>
+              );
+            })}
             {loggedIn ? (
               <div className="navbar-mobile-user" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, marginTop: 18 }}>
                 <Link to="/create" className="navbar-mobile-create-btn" style={{ 

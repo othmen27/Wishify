@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaHeart, FaShareAlt, FaEye, FaGift, FaArrowLeft, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { isLoggedIn } from '../utils/auth';
+import { FaHeart, FaShareAlt, FaEye, FaArrowLeft, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaComments } from 'react-icons/fa';
+import { isLoggedIn, getCurrentUser } from '../utils/auth';
 import '../App.css';
 
 const WishDetail = () => {
@@ -15,6 +15,7 @@ const WishDetail = () => {
   const [likesCount, setLikesCount] = useState(0);
   const [sharesCount, setSharesCount] = useState(0);
   const [viewsCount, setViewsCount] = useState(0);
+  const currentUser = getCurrentUser();
 
   // Set page title based on wish data
   useEffect(() => {
@@ -123,6 +124,27 @@ const WishDetail = () => {
     } catch (error) {
       console.error('Error sharing wish:', error);
     }
+  };
+
+  const handleChatWithUser = () => {
+    if (!isLoggedIn()) {
+      alert('Please log in to start a chat');
+      navigate('/login');
+      return;
+    }
+    
+    if (!wish.user || !wish.user.username) {
+      alert('User information not available');
+      return;
+    }
+    
+    if (currentUser && currentUser._id === wish.user._id) {
+      alert('You cannot chat with yourself');
+      return;
+    }
+    
+    // Navigate to chat page with the user
+    navigate(`/chat?user=${wish.user.username}`);
   };
 
   const nextImage = () => {
@@ -253,7 +275,7 @@ const WishDetail = () => {
               <div className="relative h-96 bg-gray-100 rounded-lg overflow-hidden">
                 <img
                   src={images[currentImageIndex]}
-                  alt={`${wish.title} - Image ${currentImageIndex + 1}`}
+                  alt={`${wish.title} - ${currentImageIndex + 1}`}
                   className="w-full h-full object-cover"
                 />
                 
@@ -356,6 +378,16 @@ const WishDetail = () => {
               <FaEye />
               <span>{viewsCount}</span>
             </div>
+            {wish.user && currentUser && wish.user._id !== currentUser._id && (
+              <button 
+                onClick={handleChatWithUser}
+                className="flex items-center gap-2 text-gray-600 hover:text-green-500 transition-colors"
+                title="Chat with user about this wish"
+              >
+                <FaComments />
+                <span>Chat</span>
+              </button>
+            )}
           </div>
         </div>
       </div>

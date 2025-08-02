@@ -71,6 +71,30 @@ exports.getUserWishes = async (req, res) => {
   }
 };
 
+// Get wishes by user ID (for chat feature)
+exports.getWishesByUserId = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    
+    // Check if user exists
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    // Get public wishes for the user
+    const wishes = await Wish.find({ 
+      user: userId, 
+      visibility: 'public' 
+    }).sort({ createdAt: -1 });
+    
+    res.json({ wishes });
+  } catch (error) {
+    console.error('Error fetching wishes by user ID:', error);
+    res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
 // Get all public wishes (for discover feed)
 exports.getPublicWishes = async (req, res) => {
   try {

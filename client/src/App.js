@@ -11,6 +11,7 @@ import ProfileEdit from './components/ProfileEdit';
 import WishDetail from './components/WishDetail';
 import Wishlist from './Wishlist';
 import About from './About';
+import Chat from './components/Chat';
 import Navbar from './Navbar';
 import Footer from './components/Footer';
 import './App.css';
@@ -33,6 +34,7 @@ function App() {
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/wish/:id" element={<WishDetail />} />
             <Route path="/user/:username" element={<UserProfile />} />
+            <Route path="/chat" element={<Chat />} />
           </Routes>
         </div>
         <Footer />

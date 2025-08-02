@@ -4,6 +4,7 @@ const auth = require('../middleware/auth');
 const { 
   createWish, 
   getUserWishes, 
+  getWishesByUserId,
   getPublicWishes, 
   getWish,
   toggleLike,
@@ -19,6 +20,9 @@ router.post('/', auth, createWish);
 // Get user's wishes (requires authentication)
 router.get('/my', auth, getUserWishes);
 router.get('/my-wishes', auth, getUserWishes); // Alternative route for wishlist
+
+// Get wishes by user ID (for chat feature)
+router.get('/user/:userId', auth, getWishesByUserId);
 
 // Get all public wishes (no authentication required)
 router.get('/public', getPublicWishes);
