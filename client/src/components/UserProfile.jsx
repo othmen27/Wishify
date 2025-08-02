@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaEdit, FaHeart, FaGift, FaMapMarkerAlt, FaShareAlt, FaCrown, FaEye, FaLock, FaStar } from 'react-icons/fa';
+import { FaEdit, FaHeart, FaGift, FaMapMarkerAlt, FaShareAlt, FaCrown, FaEye, FaLock, FaStar, FaPaypal, FaDollarSign, FaComments } from 'react-icons/fa';
 import { isLoggedIn, getCurrentUser } from '../utils/auth';
 import WishlistCard from './Discover/WishlistCard';
 import '../App.css';
@@ -89,6 +89,45 @@ const UserProfile = () => {
       navigator.clipboard.writeText(profileUrl);
       alert('Profile link copied to clipboard!');
     }
+  };
+
+  const handlePayPal = () => {
+    if (user?.paypalEmail) {
+      // Copy email to clipboard and open PayPal send money page
+      navigator.clipboard.writeText(user.paypalEmail);
+      const paypalUrl = 'https://www.paypal.com/send';
+      window.open(paypalUrl, '_blank');
+      alert(`PayPal email copied to clipboard: ${user.paypalEmail}\n\nPayPal send money page opened. Paste the email address to send money.`);
+    } else {
+      alert('PayPal information not available');
+    }
+  };
+
+  const handleCashApp = () => {
+    if (user?.cashappUsername) {
+      // Clean the Cash App username and create the link
+      const cleanUsername = user.cashappUsername.replace(/^\$/, ''); // Remove leading $ if present
+      const cashappUrl = `https://cash.app/$${cleanUsername}`;
+      window.open(cashappUrl, '_blank');
+    } else {
+      alert('Cash App information not available');
+    }
+  };
+
+  const handleStartChat = () => {
+    if (!isLoggedIn()) {
+      alert('Please log in to start a chat');
+      navigate('/login');
+      return;
+    }
+    
+    if (isOwnProfile) {
+      alert('You cannot chat with yourself');
+      return;
+    }
+    
+    // For now, we'll show a simple alert. In a real app, this would open a chat interface
+    alert(`Chat feature coming soon! You would be able to chat with ${user?.username} here.`);
   };
 
   const formatDate = (dateString) => {
@@ -180,14 +219,85 @@ const UserProfile = () => {
               </div>
             </div>
             
-            {/* Share Button */}
-            <button
-              onClick={handleShare}
-              className="flex items-center gap-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
-            >
-              <FaShareAlt />
-              Share Profile
-            </button>
+            {/* Action Buttons */}
+            <div className="flex items-center gap-2">
+              {/* Payment Buttons - Only show if user has payment info and it's not their own profile */}
+              {!isOwnProfile && (user?.paypalEmail || user?.cashappUsername) && (
+                <div className="flex items-center gap-2">
+                  {user?.paypalEmail && (
+                    <button
+                      onClick={handlePayPal}
+                      className="flex items-center gap-2 bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors text-sm"
+                      title={`Send money via PayPal to ${user.username}`}
+                    >
+                      <FaPaypal />
+                      PayPal
+                    </button>
+                  )}
+                  {user?.cashappUsername && (
+                    <button
+                      onClick={handleCashApp}
+                      className="flex items-center gap-2 bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600 transition-colors text-sm"
+                      title={`Send money via Cash App to ${user.username}`}
+                    >
+                      <FaDollarSign />
+                      Cash App
+                    </button>
+                  )}
+                </div>
+              )}
+              
+              {/* Start Chat Button - Only show if not own profile */}
+              {!isOwnProfile && (
+                <button
+                  onClick={handleStartChat}
+                  className="flex items-center gap-2 bg-purple-500 text-white px-3 py-2 rounded-lg hover:bg-purple-600 transition-colors text-sm"
+                  title={`Start a chat with ${user?.username}`}
+                >
+                  <FaComments />
+                  Start Chat
+                </button>
+              )}
+              
+              {/* Debug: Always show buttons for testing */}
+              {isOwnProfile && (
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handlePayPal}
+                    className="flex items-center gap-2 bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600 transition-colors text-sm"
+                    title="PayPal (Debug)"
+                  >
+                    <FaPaypal />
+                    PayPal
+                  </button>
+                  <button
+                    onClick={handleCashApp}
+                    className="flex items-center gap-2 bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600 transition-colors text-sm"
+                    title="Cash App (Debug)"
+                  >
+                    <FaDollarSign />
+                    Cash App
+                  </button>
+                  <button
+                    onClick={handleStartChat}
+                    className="flex items-center gap-2 bg-purple-500 text-white px-3 py-2 rounded-lg hover:bg-purple-600 transition-colors text-sm"
+                    title="Start Chat (Debug)"
+                  >
+                    <FaComments />
+                    Start Chat
+                  </button>
+                </div>
+              )}
+              
+              {/* Share Button */}
+              <button
+                onClick={handleShare}
+                className="flex items-center gap-2 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                <FaShareAlt />
+                Share Profile
+              </button>
+            </div>
           </div>
         </div>
       </div>
