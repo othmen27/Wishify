@@ -9,8 +9,8 @@ router.use(auth);
 // Get all chats for current user
 router.get('/', chatController.getUserChats);
 
-// Get specific chat with another user
-router.get('/:otherUserId', chatController.getChat);
+// Get unread message count
+router.get('/unread/count', chatController.getUnreadCount);
 
 // Send message
 router.post('/message', chatController.sendMessage);
@@ -18,7 +18,7 @@ router.post('/message', chatController.sendMessage);
 // Mark chat as read
 router.put('/:chatId/read', chatController.markAsRead);
 
-// Get unread message count
-router.get('/unread/count', chatController.getUnreadCount);
+// Get specific chat with another user (must be last to avoid conflicts)
+router.get('/:otherUserId', chatController.getChat);
 
 module.exports = router; 

@@ -13,6 +13,11 @@ exports.getUserChats = async (req, res) => {
     .populate('messages.sender', 'username profileImage')
     .sort({ lastMessage: -1 });
 
+    console.log('Found chats for user:', userId, 'Count:', chats.length);
+    chats.forEach(chat => {
+      console.log('Chat ID:', chat._id, 'Participants:', chat.participants.map(p => p.username), 'Last Message:', chat.lastMessage, 'Messages count:', chat.messages.length);
+    });
+
     // Format chats for frontend
     const formattedChats = chats.map(chat => {
       const otherParticipant = chat.participants.find(
@@ -59,15 +64,33 @@ exports.getChat = async (req, res) => {
         messages: []
       });
       await chat.save();
-      chat = await Chat.findById(chat._id)
-        .populate('participants', 'username profileImage')
-        .populate('messages.sender', 'username profileImage');
-    } else {
-      // Mark messages as read
-      await chat.markAsRead(currentUserId);
     }
+    
+    // Mark messages as read
+    await chat.markAsRead(currentUserId);
+    
+    // Get populated chat
+    const populatedChat = await Chat.findById(chat._id)
+      .populate('participants', 'username profileImage')
+      .populate('messages.sender', 'username profileImage');
 
-    res.json({ chat });
+    // Format chat for frontend (same format as getUserChats)
+    const otherParticipant = populatedChat.participants.find(
+      p => p._id.toString() !== currentUserId.toString()
+    );
+    
+    const unreadCount = populatedChat.unreadCount.get(currentUserId.toString()) || 0;
+    
+    const formattedChat = {
+      _id: populatedChat._id,
+      otherUser: otherParticipant,
+      messages: populatedChat.messages,
+      lastMessage: populatedChat.messages[populatedChat.messages.length - 1] || null,
+      unreadCount,
+      lastMessageTime: populatedChat.lastMessage
+    };
+
+    res.json({ chat: formattedChat });
   } catch (error) {
     console.error('Error fetching chat:', error);
     res.status(500).json({ message: 'Server error', error: error.message });
@@ -103,27 +126,51 @@ exports.sendMessage = async (req, res) => {
       
       if (!chat) {
         // Create new chat
+        console.log('Creating new chat between users:', senderId, otherUserId);
         chat = new Chat({
           participants: [senderId, otherUserId],
           messages: []
         });
         await chat.save();
+        console.log('New chat created with ID:', chat._id);
       }
     } else {
       return res.status(400).json({ message: 'Either chatId or otherUserId is required' });
     }
 
     // Add message
+    console.log('Adding message to chat:', chat._id);
     await chat.addMessage(senderId, content.trim());
+    
+    // Explicitly update lastMessage to ensure it's set correctly
+    await Chat.findByIdAndUpdate(chat._id, { lastMessage: new Date() });
+    console.log('Message added, lastMessage explicitly updated');
 
     // Get updated chat with populated fields
     const updatedChat = await Chat.findById(chat._id)
       .populate('participants', 'username profileImage')
       .populate('messages.sender', 'username profileImage');
+    console.log('Updated chat retrieved, lastMessage:', updatedChat.lastMessage);
+
+    // Format chat for frontend (same format as getUserChats)
+    const otherParticipant = updatedChat.participants.find(
+      p => p._id.toString() !== senderId.toString()
+    );
+    
+    const unreadCount = updatedChat.unreadCount.get(senderId.toString()) || 0;
+    
+    const formattedChat = {
+      _id: updatedChat._id,
+      otherUser: otherParticipant,
+      messages: updatedChat.messages,
+      lastMessage: updatedChat.messages[updatedChat.messages.length - 1] || null,
+      unreadCount,
+      lastMessageTime: updatedChat.lastMessage
+    };
 
     res.json({ 
       message: 'Message sent successfully',
-      chat: updatedChat 
+      chat: formattedChat 
     });
   } catch (error) {
     console.error('Error sending message:', error);

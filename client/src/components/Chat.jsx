@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FaComments, FaTimes } from 'react-icons/fa';
 import { isLoggedIn } from '../utils/auth';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -15,34 +15,9 @@ const Chat = () => {
 
   usePageTitle('Chat');
 
-  useEffect(() => {
-    if (!isLoggedIn()) {
-      navigate('/login');
-    }
-  }, [navigate]);
+  const [refreshChatList, setRefreshChatList] = useState(0);
 
-  // Handle user parameter from URL (for contextual chat access)
-  useEffect(() => {
-    const userParam = searchParams.get('user');
-    if (userParam) {
-      // Find or create chat with the specified user
-      handleChatWithUser(userParam);
-    }
-  }, [searchParams]);
-
-  const handleChatSelect = (chat) => {
-    setSelectedChat(chat);
-    setShowChatList(false);
-  };
-
-  const handleBackToList = () => {
-    setSelectedChat(null);
-    setShowChatList(true);
-  };
-
-
-
-  const handleChatWithUser = async (username) => {
+  const handleChatWithUser = useCallback(async (username) => {
     try {
       // First, try to find existing chat with this user
       const response = await fetch('/api/chat', {
@@ -54,7 +29,7 @@ const Chat = () => {
       if (response.ok) {
         const data = await response.json();
         const existingChat = data.chats.find(chat => 
-          chat.otherUser.username === username
+          chat.otherUser && chat.otherUser.username === username
         );
         
         if (existingChat) {
@@ -82,7 +57,7 @@ const Chat = () => {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            otherUserId: userData.user._id,
+            otherUserId: userData._id,
             content: '👋 Hi! I wanted to chat with you about your wishes.'
           })
         });
@@ -91,6 +66,8 @@ const Chat = () => {
           const chatData = await createChatResponse.json();
           setSelectedChat(chatData.chat);
           setShowChatList(false);
+          // Trigger chat list refresh
+          setRefreshChatList(prev => prev + 1);
         } else {
           console.error('Failed to create chat');
         }
@@ -98,6 +75,33 @@ const Chat = () => {
     } catch (error) {
       console.error('Error finding/creating chat with user:', error);
     }
+  }, []);
+
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
+  // Handle user parameter from URL (for contextual chat access)
+  useEffect(() => {
+    const userParam = searchParams.get('user');
+    if (userParam) {
+      // Find or create chat with the specified user
+      handleChatWithUser(userParam);
+    }
+  }, [searchParams, handleChatWithUser]);
+
+  const handleChatSelect = (chat) => {
+    setSelectedChat(chat);
+    setShowChatList(false);
+  };
+
+  const handleBackToList = () => {
+    setSelectedChat(null);
+    setShowChatList(true);
+    // Refresh chat list when going back
+    setRefreshChatList(prev => prev + 1);
   };
 
   return (
@@ -121,6 +125,7 @@ const Chat = () => {
             <ChatList 
               onChatSelect={handleChatSelect}
               selectedChatId={selectedChat?._id}
+              refreshTrigger={refreshChatList}
             />
           </div>
 

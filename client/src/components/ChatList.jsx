@@ -3,7 +3,7 @@ import { FaComments, FaCircle, FaUser, FaSearch, FaFilter, FaClock, FaGift } fro
 import { getAuthHeader, getCurrentUser } from '../utils/auth';
 import '../App.css';
 
-const ChatList = ({ onChatSelect, selectedChatId }) => {
+const ChatList = ({ onChatSelect, selectedChatId, refreshTrigger }) => {
   const [chats, setChats] = useState([]);
   const [filteredChats, setFilteredChats] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,15 +12,7 @@ const ChatList = ({ onChatSelect, selectedChatId }) => {
   const [activeFilter, setActiveFilter] = useState('all');
   const currentUser = getCurrentUser();
 
-  useEffect(() => {
-    fetchChats();
-  }, []);
-
-  useEffect(() => {
-    filterChats();
-  }, [chats, searchTerm, activeFilter]);
-
-  const fetchChats = async () => {
+  const fetchChats = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch('/api/chat', {
@@ -38,7 +30,22 @@ const ChatList = ({ onChatSelect, selectedChatId }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchChats();
+  }, [fetchChats]);
+
+  // Refetch chats when refreshTrigger changes
+  useEffect(() => {
+    if (refreshTrigger > 0) {
+      fetchChats();
+    }
+  }, [refreshTrigger, fetchChats]);
+
+  useEffect(() => {
+    filterChats();
+  }, [chats, searchTerm, activeFilter]);
 
   const filterChats = useCallback(() => {
     let filtered = [...chats];
