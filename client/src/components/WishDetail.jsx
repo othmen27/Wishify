@@ -34,7 +34,7 @@ const WishDetail = () => {
   useEffect(() => {
     const fetchWish = async () => {
       try {
-        const response = await fetch(`/api/wishes/${id}`);
+        const response = await fetch(`${config.getApiUrl()}/api/wishes/${id}`);
         if (!response.ok) {
           throw new Error('Wish not found');
         }
@@ -77,7 +77,7 @@ const WishDetail = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/wishes/${id}/like`, {
+      const response = await fetch(`${config.getApiUrl()}/api/wishes/${id}/like`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -98,7 +98,7 @@ const WishDetail = () => {
   const handleShare = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/wishes/${id}/share`, {
+      const response = await fetch(`${config.getApiUrl()}/api/wishes/${id}/share`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

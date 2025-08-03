@@ -27,7 +27,7 @@ const Home = () => {
     const fetchRecentWishes = async () => {
       try {
         setLoading(true);
-        const response = await fetch('${config.getApiUrl()}/api/wishes/public');
+        const response = await fetch(`${config.getApiUrl()}/api/wishes/public`);
         if (response.ok) {
           const data = await response.json();
           console.log('Fetched data:', data); // Debug log

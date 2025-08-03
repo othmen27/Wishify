@@ -84,7 +84,7 @@ const Create = () => {
 
     try {
       const response = await axios.post(
-        '${config.getApiUrl()}/api/upload/images',
+        `${config.getApiUrl()}/api/upload/images`,
         formData,
         { 
           headers: { 
@@ -122,7 +122,7 @@ const Create = () => {
       console.log('Sending wish data:', wishData);
       
       const response = await axios.post(
-        '${config.getApiUrl()}/api/wishes',
+        `${config.getApiUrl()}/api/wishes`,
         wishData,
         { headers: getAuthHeader() }
       );

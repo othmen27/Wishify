@@ -24,7 +24,7 @@ const Leaderboard = () => {
     const fetchLeaderboard = async () => {
       try {
         setLoading(true);
-        const response = await fetch('${config.getApiUrl()}/api/auth/leaderboard');
+        const response = await fetch(`${config.getApiUrl()}/api/auth/leaderboard`);
         if (response.ok) {
           const data = await response.json();
           console.log('Leaderboard data:', data);

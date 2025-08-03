@@ -17,7 +17,7 @@ const ChatList = ({ onChatSelect, selectedChatId, refreshTrigger }) => {
   const fetchChats = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/chat', {
+      const response = await fetch(`${config.getApiUrl()}/api/chat`, {
         headers: getAuthHeader()
       });
       

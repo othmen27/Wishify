@@ -65,7 +65,7 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('${config.getApiUrl()}/api/auth/register', {
+      const response = await axios.post(`${config.getApiUrl()}/api/auth/register`, {
         username: name,
         email,
         password,

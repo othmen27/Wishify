@@ -35,7 +35,7 @@ const ProfileEdit = () => {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await axios.get('${config.getApiUrl()}/api/users/profile/edit', {
+      const response = await axios.get(`${config.getApiUrl()}/api/users/profile/edit`, {
         headers: getAuthHeader()
       });
       
@@ -98,7 +98,7 @@ const ProfileEdit = () => {
       }
 
       const response = await axios.put(
-        '${config.getApiUrl()}/api/users/profile/edit',
+        `${config.getApiUrl()}/api/users/profile/edit`,
         formDataToSend,
         {
           headers: {

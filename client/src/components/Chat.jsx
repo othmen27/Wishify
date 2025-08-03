@@ -22,7 +22,7 @@ const Chat = () => {
   const handleChatWithUser = useCallback(async (username) => {
     try {
       // First, try to find existing chat with this user
-      const response = await fetch('/api/chat', {
+      const response = await fetch(`${config.getApiUrl()}/api/chat`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -42,7 +42,7 @@ const Chat = () => {
       }
       
       // If no existing chat, create a new one by sending a message
-      const userResponse = await fetch(`/api/users/${username}`, {
+      const userResponse = await fetch(`${config.getApiUrl()}/api/users/${username}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -52,7 +52,7 @@ const Chat = () => {
         const userData = await userResponse.json();
         
         // Create a chat by sending an initial message
-        const createChatResponse = await fetch('/api/chat/message', {
+        const createChatResponse = await fetch(`${config.getApiUrl()}/api/chat/message`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`,

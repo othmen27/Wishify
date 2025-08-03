@@ -47,7 +47,7 @@ const Wishlist = () => {
   const fetchWishes = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('/api/wishes/my-wishes', {
+      const response = await fetch(`${config.getApiUrl()}/api/wishes/my-wishes`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -73,7 +73,7 @@ const Wishlist = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/wishes/${wishId}`, {
+      const response = await fetch(`${config.getApiUrl()}/api/wishes/${wishId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -93,7 +93,7 @@ const Wishlist = () => {
   const handleToggleVisibility = async (wishId, currentVisibility) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/wishes/${wishId}`, {
+      const response = await fetch(`${config.getApiUrl()}/api/wishes/${wishId}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -121,7 +121,7 @@ const Wishlist = () => {
   const handleMarkGranted = async (wishId, currentGranted) => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/wishes/${wishId}`, {
+      const response = await fetch(`${config.getApiUrl()}/api/wishes/${wishId}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

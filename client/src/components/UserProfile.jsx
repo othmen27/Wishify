@@ -25,7 +25,7 @@ const UserProfile = () => {
       try {
         setLoading(true);
         // Fetch user data
-        const userResponse = await fetch(`/api/users/${username}`);
+        const userResponse = await fetch(`${config.getApiUrl()}/api/users/${username}`);
         if (!userResponse.ok) {
           throw new Error('User not found');
         }
@@ -33,7 +33,7 @@ const UserProfile = () => {
         setUser(userData);
 
         // Fetch user's wishes
-        const wishesResponse = await fetch(`/api/users/${username}/wishes`);
+        const wishesResponse = await fetch(`${config.getApiUrl()}/api/users/${username}/wishes`);
         if (wishesResponse.ok) {
           const wishesData = await wishesResponse.json();
           setWishes(wishesData.wishes || []);

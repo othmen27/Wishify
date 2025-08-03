@@ -50,7 +50,7 @@ const WishlistCard = ({ wishlist }) => {
           headers['Authorization'] = `Bearer ${token}`;
         }
         
-        const response = await fetch(`/api/wishes/${wish._id}/view`, {
+        const response = await fetch(`${config.getApiUrl()}/api/wishes/${wish._id}/view`, {
           method: 'POST',
           headers
         });
@@ -76,7 +76,7 @@ const WishlistCard = ({ wishlist }) => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/wishes/${wish._id}/like`, {
+      const response = await fetch(`${config.getApiUrl()}/api/wishes/${wish._id}/like`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -98,7 +98,7 @@ const WishlistCard = ({ wishlist }) => {
     e.stopPropagation();
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`/api/wishes/${wish._id}/share`, {
+      const response = await fetch(`${config.getApiUrl()}/api/wishes/${wish._id}/share`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

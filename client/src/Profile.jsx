@@ -108,7 +108,7 @@ const Profile = () => {
 
       console.log('Request headers:', headers); // Debug log
 
-      const response = await fetch('/api/auth/profile', {
+      const response = await fetch(`${config.getApiUrl()}/api/auth/profile`, {
         method: 'PUT',
         headers,
         body: requestBody

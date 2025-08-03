@@ -68,7 +68,7 @@ const ChatWindow = ({ selectedChat, onBack, setSelectedChat }) => {
         throw new Error('User information not available');
       }
       
-      const response = await fetch(`/api/chat/${otherUserId}`, {
+      const response = await fetch(`${config.getApiUrl()}/api/chat/${otherUserId}`, {
         headers: getAuthHeader()
       });
       
@@ -100,7 +100,7 @@ const ChatWindow = ({ selectedChat, onBack, setSelectedChat }) => {
         return;
       }
       
-      const response = await fetch(`/api/wishes/user/${otherUserId}`, {
+      const response = await fetch(`${config.getApiUrl()}/api/wishes/user/${otherUserId}`, {
         headers: getAuthHeader()
       });
       
@@ -115,7 +115,7 @@ const ChatWindow = ({ selectedChat, onBack, setSelectedChat }) => {
 
   const markMessagesAsRead = useCallback(async () => {
     try {
-      await fetch(`/api/chat/${selectedChat._id}/read`, {
+      await fetch(`${config.getApiUrl()}/api/chat/${selectedChat._id}/read`, {
         method: 'PUT',
         headers: getAuthHeader()
       });
@@ -149,7 +149,7 @@ const ChatWindow = ({ selectedChat, onBack, setSelectedChat }) => {
         }
       }
       
-      const response = await fetch('/api/chat/message', {
+      const response = await fetch(`${config.getApiUrl()}/api/chat/message`, {
         method: 'POST',
         headers: {
           ...getAuthHeader(),
@@ -203,7 +203,7 @@ const ChatWindow = ({ selectedChat, onBack, setSelectedChat }) => {
         }
       }
       
-      const response = await fetch('/api/chat/message', {
+      const response = await fetch(`${config.getApiUrl()}/api/chat/message`, {
         method: 'POST',
         headers: {
           ...getAuthHeader(),
@@ -257,7 +257,7 @@ const ChatWindow = ({ selectedChat, onBack, setSelectedChat }) => {
         }
       }
       
-      const response = await fetch('/api/chat/message', {
+      const response = await fetch(`${config.getApiUrl()}/api/chat/message`, {
         method: 'POST',
         headers: {
           ...getAuthHeader(),
@@ -296,7 +296,7 @@ const ChatWindow = ({ selectedChat, onBack, setSelectedChat }) => {
 
     try {
       setSending(true);
-      const response = await fetch('/api/upload', {
+      const response = await fetch(`${config.getApiUrl()}/api/upload`, {
         method: 'POST',
         headers: {
           'Authorization': getAuthHeader().Authorization
@@ -328,7 +328,7 @@ const ChatWindow = ({ selectedChat, onBack, setSelectedChat }) => {
         }
       }
       
-      const messageResponse = await fetch('/api/chat/message', {
+      const messageResponse = await fetch(`${config.getApiUrl()}/api/chat/message`, {
         method: 'POST',
         headers: {
           ...getAuthHeader(),
