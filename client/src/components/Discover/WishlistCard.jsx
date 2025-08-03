@@ -1,5 +1,5 @@
-import React
-import config from './config';
+import React from 'react';
+import config from '../../config';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaHeart, FaShareAlt, FaEye, FaGift } from 'react-icons/fa';

@@ -1,5 +1,5 @@
-import React
-import config from './config';
+import React from 'react';
+import config from '../config';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { FaPaperPlane, FaUser, FaArrowLeft, FaEllipsisV, FaSmile, FaPaperclip, FaGift, FaEye, FaList, FaImage, FaTimes, FaCheck, FaCheckDouble, FaHandshake, FaBell } from 'react-icons/fa';
 import { getAuthHeader, getCurrentUser } from '../utils/auth';

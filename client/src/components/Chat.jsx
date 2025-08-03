@@ -1,5 +1,5 @@
-import React
-import config from './config';
+import React from 'react';
+import config from '../config';
 import { useState, useEffect, useCallback } from 'react';
 import { FaComments, FaTimes } from 'react-icons/fa';
 import { isLoggedIn } from '../utils/auth';

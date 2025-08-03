@@ -1,4 +1,4 @@
-import React
+import React from 'react';
 import config from './config';
 import { useState, useEffect } from 'react';
 import { FaGift, FaListAlt, FaShareAlt, FaCrown, FaFire, FaChartLine, FaEye } from 'react-icons/fa';

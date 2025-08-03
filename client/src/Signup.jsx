@@ -1,4 +1,4 @@
-import React
+import React from 'react';
 import config from './config';
 import { useState } from 'react';
 import { FaGift, FaMagic, FaGoogle, FaFacebook, FaCheckCircle, FaTimesCircle, FaEye, FaEyeSlash } from 'react-icons/fa';

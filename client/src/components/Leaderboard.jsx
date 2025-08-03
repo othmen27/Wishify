@@ -1,5 +1,5 @@
-import React
-import config from './config';
+import React from 'react';
+import config from '../config';
 import { useState, useEffect } from 'react';
 import { FaCrown, FaFire, FaChartLine } from 'react-icons/fa';
 import '../App.css';
