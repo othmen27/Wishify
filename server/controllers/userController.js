@@ -70,9 +70,7 @@ exports.updateProfile = async (req, res) => {
     
     // Handle profile image upload
     if (req.file) {
-      const baseUrl = process.env.NODE_ENV === 'production' 
-        ? 'http://18.209.102.221' 
-        : 'http://localhost:5000';
+      const baseUrl = 'http://18.209.102.221'; // Temporarily hardcoded for testing
       updateData.profileImage = `${baseUrl}/uploads/profiles/${req.file.filename}`;
     }
     
