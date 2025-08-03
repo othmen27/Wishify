@@ -404,7 +404,7 @@ const ChatWindow = ({ selectedChat, onBack, setSelectedChat }) => {
   };
 
   const isOwnMessage = (message) => {
-    return message.sender._id === currentUser._id;
+    return message.sender._id === currentUser.id;
   };
 
   const getReadStatus = (message) => {
@@ -512,10 +512,10 @@ const ChatWindow = ({ selectedChat, onBack, setSelectedChat }) => {
         ) : (
           <div className="messages-list">
             {messages.map((message, index) => (
-              <div
-                key={message._id || index}
-                className={`message ${isOwnMessage(message) ? 'own' : 'other'}`}
-              >
+                <div
+                  key={message._id || index}
+                  className={`message ${isOwnMessage(message) ? 'own' : 'other'}`}
+                >
                 <div className="message-content">
                   <p>{message.content}</p>
                   <div className="message-footer">
