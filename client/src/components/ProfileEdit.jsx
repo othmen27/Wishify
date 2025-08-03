@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React
+import config from './config';
+import { useState, useEffect } from 'react';
 import { FaUser, FaEdit, FaSave, FaTimes, FaPaypal, FaDollarSign, FaMapMarkerAlt, FaFileAlt, FaCheckCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -33,7 +35,7 @@ const ProfileEdit = () => {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/users/profile/edit', {
+      const response = await axios.get('${config.getApiUrl()}/api/users/profile/edit', {
         headers: getAuthHeader()
       });
       
@@ -96,7 +98,7 @@ const ProfileEdit = () => {
       }
 
       const response = await axios.put(
-        'http://localhost:5000/api/users/profile/edit',
+        '${config.getApiUrl()}/api/users/profile/edit',
         formDataToSend,
         {
           headers: {

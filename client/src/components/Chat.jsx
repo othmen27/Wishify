@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React
+import config from './config';
+import { useState, useEffect, useCallback } from 'react';
 import { FaComments, FaTimes } from 'react-icons/fa';
 import { isLoggedIn } from '../utils/auth';
 import { useNavigate, useSearchParams } from 'react-router-dom';

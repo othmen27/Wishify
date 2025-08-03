@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React
+import config from './config';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaRegStar, FaMagic, FaBars, FaTimes, FaUserCircle } from 'react-icons/fa';
 import { isLoggedIn, getCurrentUser, logout } from './utils/auth';
@@ -99,7 +101,7 @@ const Navbar = () => {
               <Link to={`/user/${currentUser?.username}`} className="navbar-profile-pic" style={{ cursor: 'pointer' }}>
                 {currentUser?.profileImage ? (
                   <img 
-                    src={`http://localhost:5000${currentUser.profileImage}`}
+                    src={`${config.getApiUrl()}${currentUser.profileImage}`}
                     alt="Profile"
                     style={{
                       width: '32px',
@@ -215,7 +217,7 @@ const Navbar = () => {
                 <Link to={`/user/${currentUser?.username}`} className="navbar-mobile-profile-pic" style={{ cursor: 'pointer' }}>
                   {currentUser?.profileImage ? (
                     <img 
-                      src={`http://localhost:5000${currentUser.profileImage}`}
+                      src={`${config.getApiUrl()}${currentUser.profileImage}`}
                       alt="Profile"
                       style={{
                         width: '40px',

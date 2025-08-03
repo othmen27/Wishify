@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React
+import config from './config';
+import { useState, useEffect, useCallback } from 'react';
 import { FaComments, FaCircle, FaUser, FaSearch, FaFilter, FaClock, FaGift } from 'react-icons/fa';
 import { getAuthHeader, getCurrentUser } from '../utils/auth';
 import '../App.css';
@@ -221,7 +223,7 @@ const ChatList = ({ onChatSelect, selectedChatId, refreshTrigger }) => {
                 <div className="chat-avatar">
                   {chat.otherUser?.profileImage ? (
                     <img 
-                      src={`http://localhost:5000${chat.otherUser.profileImage}`}
+                      src={`${config.getApiUrl()}${chat.otherUser.profileImage}`}
                       alt={chat.otherUser.username}
                       className="avatar-img"
                     />

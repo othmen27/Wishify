@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React
+import config from './config';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { FaPaperPlane, FaUser, FaArrowLeft, FaEllipsisV, FaSmile, FaPaperclip, FaGift, FaEye, FaList, FaImage, FaTimes, FaCheck, FaCheckDouble, FaHandshake, FaBell } from 'react-icons/fa';
 import { getAuthHeader, getCurrentUser } from '../utils/auth';
 import { useNavigate } from 'react-router-dom';
@@ -450,7 +452,7 @@ const ChatWindow = ({ selectedChat, onBack, setSelectedChat }) => {
           <div className="user-avatar">
             {selectedChat.otherUser?.profileImage ? (
               <img 
-                src={`http://localhost:5000${selectedChat.otherUser.profileImage}`}
+                src={`${config.getApiUrl()}${selectedChat.otherUser.profileImage}`}
                 alt={selectedChat.otherUser.username || 'User'}
                 className="avatar-img"
               />

@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React
+import config from './config';
+import { useState } from 'react';
 import { FaGift, FaLink, FaImage, FaEye, FaEyeSlash, FaPlus, FaSpinner } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -82,7 +84,7 @@ const Create = () => {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/api/upload/images',
+        '${config.getApiUrl()}/api/upload/images',
         formData,
         { 
           headers: { 
@@ -120,7 +122,7 @@ const Create = () => {
       console.log('Sending wish data:', wishData);
       
       const response = await axios.post(
-        'http://localhost:5000/api/wishes',
+        '${config.getApiUrl()}/api/wishes',
         wishData,
         { headers: getAuthHeader() }
       );

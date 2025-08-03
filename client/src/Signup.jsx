@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React
+import config from './config';
+import { useState } from 'react';
 import { FaGift, FaMagic, FaGoogle, FaFacebook, FaCheckCircle, FaTimesCircle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import './App.css';
 import Leaderboard from './components/Leaderboard.jsx'; 
@@ -63,7 +65,7 @@ const Signup = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', {
+      const response = await axios.post('${config.getApiUrl()}/api/auth/register', {
         username: name,
         email,
         password,

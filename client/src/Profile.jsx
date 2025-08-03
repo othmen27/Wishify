@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React
+import config from './config';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaPaypal, FaDollarSign, FaUser, FaEnvelope, FaSave, FaArrowLeft, FaCamera, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import { isLoggedIn, getCurrentUser, logout } from './utils/auth';
@@ -184,7 +186,7 @@ const Profile = () => {
               <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold overflow-hidden">
                 {imagePreview ? (
                   <img 
-                    src={imagePreview.startsWith('data:') ? imagePreview : `http://localhost:5000${imagePreview}`} 
+                    src={imagePreview.startsWith('data:') ? imagePreview : `${config.getApiUrl()}${imagePreview}`} 
                     alt="Profile" 
                     className="w-full h-full object-cover"
                     onError={(e) => {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import config from './config';
 import { FaGift, FaMagic, FaGoogle, FaFacebook } from 'react-icons/fa';
 import axios from 'axios';
 import './App.css';
@@ -32,7 +33,7 @@ const Login = () => {
     setLoading(true);
     
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post(`${config.getApiUrl()}/api/auth/login`, {
         email,
         password,
       });

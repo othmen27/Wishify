@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React
+import config from './config';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaEdit, FaHeart, FaGift, FaMapMarkerAlt, FaShareAlt, FaCrown, FaEye, FaLock, FaStar, FaPaypal, FaDollarSign, FaComments } from 'react-icons/fa';
 import { isLoggedIn, getCurrentUser } from '../utils/auth';
@@ -178,7 +180,7 @@ const UserProfile = () => {
               <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-blue-200">
                 {user?.profileImage ? (
                   <img 
-                    src={`http://localhost:5000${user.profileImage}`}
+                    src={`${config.getApiUrl()}${user.profileImage}`}
                     alt={user.username}
                     className="w-full h-full object-cover"
                   />

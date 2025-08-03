@@ -1,3 +1,5 @@
+import config from '../config';
+
 // Check if user is logged in
 export const isLoggedIn = () => {
   const token = localStorage.getItem('token');
@@ -29,7 +31,7 @@ export const getAuthHeader = () => {
 
 // Get wishes
 export const getWishes = async () => {
-  const response = await fetch('/api/wishes', {
+  const response = await fetch(`${config.getApiUrl()}/api/wishes`, {
     method: 'GET',
     headers: getAuthHeader(),
     });
@@ -41,7 +43,7 @@ export const getWishes = async () => {
 // Get public wishes for discover feed
 export const getPublicWishes = async () => {
   try {
-    const response = await fetch('/api/wishes/public', {
+    const response = await fetch(`${config.getApiUrl()}/api/wishes/public`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

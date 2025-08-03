@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React
+import config from './config';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaHeart, FaShareAlt, FaEye, FaArrowLeft, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaComments } from 'react-icons/fa';
 import { isLoggedIn, getCurrentUser } from '../utils/auth';
@@ -219,7 +221,7 @@ const WishDetail = () => {
             >
               {wish.user?.profileImage ? (
                 <img 
-                  src={`http://localhost:5000${wish.user.profileImage}`}
+                  src={`${config.getApiUrl()}${wish.user.profileImage}`}
                   alt={wish.user.username}
                   className="w-full h-full object-cover"
                   onError={(e) => {

@@ -48,8 +48,12 @@ router.post('/images', auth, upload.array('images', 4), async (req, res) => {
     }
 
     // Generate URLs for uploaded images
+    const baseUrl = process.env.NODE_ENV === 'production' 
+      ? 'http://18.209.102.221' 
+      : 'http://localhost:5000';
+    
     const imageUrls = req.files.map(file => {
-      return `http://localhost:5000/uploads/wishes/${file.filename}`;
+      return `${baseUrl}/uploads/wishes/${file.filename}`;
     });
 
     console.log('Images uploaded successfully:', imageUrls);

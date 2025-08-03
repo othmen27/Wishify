@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React
+import config from './config';
+import { useState, useEffect } from 'react';
 import { FaGift, FaListAlt, FaShareAlt, FaCrown, FaFire, FaChartLine, FaEye } from 'react-icons/fa';
 import './App.css';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +27,7 @@ const Home = () => {
     const fetchRecentWishes = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5000/api/wishes/public');
+        const response = await fetch('${config.getApiUrl()}/api/wishes/public');
         if (response.ok) {
           const data = await response.json();
           console.log('Fetched data:', data); // Debug log

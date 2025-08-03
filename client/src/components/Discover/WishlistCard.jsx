@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React
+import config from './config';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaHeart, FaShareAlt, FaEye, FaGift } from 'react-icons/fa';
 import { isLoggedIn } from '../../utils/auth';
@@ -141,7 +143,7 @@ const WishlistCard = ({ wishlist }) => {
         <div className="wishlist-card-avatar">
           {wish.user?.profileImage ? (
             <img 
-              src={`http://localhost:5000${wish.user.profileImage}`}
+              src={`${config.getApiUrl()}${wish.user.profileImage}`}
               alt={wish.user.username}
               style={{
                 width: '40px',

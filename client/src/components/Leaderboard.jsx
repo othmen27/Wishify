@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React
+import config from './config';
+import { useState, useEffect } from 'react';
 import { FaCrown, FaFire, FaChartLine } from 'react-icons/fa';
 import '../App.css';
 
@@ -22,7 +24,7 @@ const Leaderboard = () => {
     const fetchLeaderboard = async () => {
       try {
         setLoading(true);
-        const response = await fetch('http://localhost:5000/api/auth/leaderboard');
+        const response = await fetch('${config.getApiUrl()}/api/auth/leaderboard');
         if (response.ok) {
           const data = await response.json();
           console.log('Leaderboard data:', data);
